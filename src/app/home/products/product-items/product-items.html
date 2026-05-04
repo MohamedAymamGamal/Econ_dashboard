@@ -1,0 +1,65 @@
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4">
+    @for (item of products;   track trackById($index, item)) {
+
+
+
+
+      <div class="border-2 border-primary rounded-lg p-2">
+
+        <app-product-gallery
+          [photos]="item.photos"
+          [alt]="item.name">
+
+        </app-product-gallery>
+
+        <div class="flex items-center justify-between p-4">
+          <h3 class="text-lg font-semibold">{{ item.name }}</h3>
+          <app-reuse-button icon="pi pi-shopping-cart" type="button" label="Add to Cart"></app-reuse-button>
+        </div>
+        <div class="flex-col flex items-start p-2 ">
+          <p class="text-secondary"> description: {{ item.description }}</p>
+          <p class="text-secondary"> category: {{ item.categoryName }}</p>
+
+        </div>
+        <div class="flex flex-col items-start p-2 space-y-1">
+
+          <!-- New Price (highlighted) -->
+          <p class="text-lg text-secondary font-semibold">
+            {{ item.newprice }} EGP
+          </p>
+
+          <!-- Old Price (crossed out) -->
+          <p class="text-sm text-gray-400 line-through">
+            {{ item.oldPrice }} EGP
+          </p>
+
+          <!-- Optional: discount badge -->
+          <span class="text-xs bg-red-100 text-tertiary px-2 py-0.5 rounded">
+          -{{ ((item.oldPrice - item.newprice) / item.oldPrice * 100) | number:'1.0-0' }}%
+        </span>
+
+        </div>
+
+
+
+      </div>
+
+
+
+
+    } @empty {
+      <!-- Empty state for better UX -->
+      <div class="col-span-full text-center py-20">
+        <p class="text-gray-500 text-lg">No products found in this category.</p>
+      </div>
+    }
+  </div>
+<app-pagination
+  [PageNumber]="ProductParam.pageNumber"
+  [PageSize]="ProductParam.pageSize"
+  [TotalRecords]="totalRecords"
+  (PageChange)="OnChangePage($event)"
+  class="fixed bottom-0 w-full">
+</app-pagination>
+

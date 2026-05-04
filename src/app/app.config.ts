@@ -2,10 +2,27 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
+import Aura from '@primeuix/themes/aura';
+import {providePrimeNG} from 'primeng/config';
+import {ConfirmationService, MessageService} from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes)
+    provideRouter(routes),
+    // provideHttpClient(withInterceptors())
+    MessageService,
+    ConfirmationService,
+
+    providePrimeNG({
+      theme: {
+        preset: Aura,
+        options: {
+          prefix: 'p',
+          darkModeSelector: 'system',
+          cssLayer: false
+        }
+      }
+    })
   ]
 };

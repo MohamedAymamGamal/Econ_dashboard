@@ -1,0 +1,9 @@
+<nav>
+  <div class="flex items-center justify-evenly p-2 m-2 bg-primary rounded-2xl ">
+     <img ngSrc="images/shop.svg" priority  width="800" height="600"  class="w-10 cursor-pointer h-10">
+      @for(item of navItems; track $index) {
+        <a [routerLink]="item.url" class="nav-link btn-secondary rounded-full p-2">{{ item.label }}</a>
+      }
+    <app-cart></app-cart>
+  </div>
+</nav>

@@ -1,3 +1,271 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "tailwindcss";
+@import "primeicons/primeicons.css";
+:root {
+  --color-primary:      #4189a6;
+  --color-secondary:     #1e4359;
+  --color-tertiary:      #456882;
+  --color-light:         #D2C1B6;
+  --color-primary-hover: #354648;
+  --color-text:          #b8d3d9;
+  --color-bg:           #121f26;
+
+  --radius:   8px;
+  --transition: 0.2s ease;
+}
+
+/* ── Reset ───────────────────────────────────────────────────────────────── */
+
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-text); /* white */
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: var(--color-primary);
+}
+
+/* ── Text helpers ────────────────────────────────────────────────────────── */
+
+.text-primary   { color: var(--color-primary); }
+.text-secondary { color: var(--color-secondary); }
+.text-tertiary  { color: var(--color-tertiary); }
+.text-light     { color: var(--color-light); }
+.bg-primary     { background-color: var(--color-bg); }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   BUTTONS
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color var(--transition),
+    color            var(--transition),
+    border-color     var(--transition),
+    box-shadow       var(--transition),
+    transform        var(--transition);
+}
+
+.btn:active  { transform: scale(0.97); }
+.btn:disabled,
+.btn[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Primary — solid deep navy */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  border-color: var(--color-primary);
+}
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+  box-shadow: 0 4px 14px rgba(27, 60, 83, 0.35);
+}
+
+/* Secondary — solid mid-blue */
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-color: var(--color-secondary);
+}
+.btn-secondary:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 14px rgba(35, 76, 106, 0.3);
+}
+
+/* Accent — warm terracotta background */
+.btn-accent {
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+  border-color: var(--color-bg);
+}
+.btn-accent:hover {
+  filter: brightness(0.9);
+  box-shadow: 0 4px 14px rgba(204, 144, 104, 0.4);
+}
+
+/* Outline — transparent with primary border */
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+.btn-outline:hover {
+  background-color: var(--color-primary);
+  color: var(--color-text);
+}
+
+/* Ghost — text only, no border/background */
+.btn-ghost {
+  background-color: transparent;
+  color: var(--color-tertiary);
+  border-color: transparent;
+}
+.btn-ghost:hover {
+  color: var(--color-primary);
+  background-color: rgba(27, 60, 83, 0.07);
+}
+
+/* Danger — for delete / destructive actions */
+.btn-danger {
+  background-color: #c0392b;
+  color: var(--color-text);
+  border-color: #c0392b;
+}
+.btn-danger:hover {
+  background-color: #a93226;
+  border-color: #a93226;
+  box-shadow: 0 4px 14px rgba(192, 57, 43, 0.35);
+}
+
+/* Sizes */
+.btn-sm { padding: 6px 14px;  font-size: 0.8rem;  }
+.btn-lg { padding: 13px 30px; font-size: 1rem;    }
+.btn-full { width: 100%; }
+
+/* Icon-only circular button */
+.btn-icon {
+  padding: 8px;
+  border-radius: 50%;
+  line-height: 1;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   INPUTS & FORM CONTROLS
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Shared base */
+.input,
+.select,
+.textarea {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--color-light);
+  border-radius: var(--radius);
+  background-color: #ffffff;
+  color: var(--color-primary);
+  font-family: inherit;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  outline: none;
+  transition:
+    border-color var(--transition),
+    box-shadow   var(--transition);
+}
+
+.input::placeholder,
+.textarea::placeholder { color: var(--color-tertiary); opacity: 0.7; }
+
+.input:hover,
+.select:hover,
+.textarea:hover {
+  border-color: var(--color-tertiary);
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(27, 60, 83, 0.15);
+}
+
+/* Error state */
+.input.is-error,
+.select.is-error,
+.textarea.is-error {
+  border-color: #c0392b;
+}
+.input.is-error:focus,
+.select.is-error:focus,
+.textarea.is-error:focus {
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.15);
+}
+
+/* Disabled state */
+.input:disabled,
+.select:disabled,
+.textarea:disabled {
+  background-color: #f4f1ef;
+  color: var(--color-tertiary);
+  cursor: not-allowed;
+}
+
+/* Textarea specific */
+.textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Select — custom arrow */
+.select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%231B3C53' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 38px;
+  cursor: pointer;
+}
+
+/* Input sizes */
+.input-sm, .select-sm { padding: 6px 10px;  font-size: 0.8rem; }
+.input-lg, .select-lg { padding: 13px 18px; font-size: 1rem;   }
+
+/* Search input with icon spacing */
+.input-search { padding-left: 38px; }
+
+/* ── Form group helpers ───────────────────────────────────────────────────── */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  letter-spacing: 0.02em;
+}
+
+.form-hint {
+  font-size: 0.78rem;
+  color: var(--color-tertiary);
+}
+
+.form-error {
+  font-size: 0.78rem;
+  color: #c0392b;
+}
+
+/* Inline label + input row */
+.form-inline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.form-inline .form-label { margin: 0; white-space: nowrap; }

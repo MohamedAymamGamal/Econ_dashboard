@@ -1,0 +1,12 @@
+app-product-gallery .p-galleria,
+app-product-gallery .p-galleria-item-wrapper,
+app-product-gallery .p-galleria-item-container {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+app-product-gallery .p-galleria-thumbnail-item-current img {
+  border: 2px solid #6366f1 !important;
+  border-radius: 8px;
+}

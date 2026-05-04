@@ -1,0 +1,76 @@
+@if (photos() && photos()!.length > 0) {
+  <p-galleria
+    [value]="photos()!"
+    [numVisible]="3"
+    [containerStyle]="{
+          'width': '100%',
+          'overflow': 'hidden',
+          'background': '#f8f9fa',
+        }"
+    [showThumbnails]="photos()!.length > 1"
+    [showIndicators]="photos()!.length > 1"
+    [showIndicatorsOnItem]="true"
+    [showItemNavigators]="true"
+    [showItemNavigatorsOnHover]="true"
+
+    [circular]="true">
+
+    <!-- Main Image -->
+    <ng-template #item let-photo>
+      <div style="position: relative; width: 100%; height: 320px; overflow: hidden; background: #f1f1f1;">
+        <img [src]="[photo] | imageUrl"
+             (error)="onImageError($event)"
+             [alt]="alt()"
+             style="
+                   width: 100%;
+                   height: 100%;
+                   object-fit: cover;
+                   display: block;
+                   transition: transform 0.4s ease;
+                 "
+             (mouseover)="$event.target.style.transform='scale(1.04)'"
+             (mouseout)="$event.target.style.transform='scale(1)'"/>
+      </div>
+    </ng-template>
+
+    <!-- Thumbnail -->
+    <ng-template #thumbnail let-photo>
+      <div style="padding: 4px;">
+        <img [src]="[photo] | imageUrl"
+             (error)="onImageError($event)"
+             [alt]="alt()"
+             style="
+                   width: 64px;
+                   height: 64px;
+                   object-fit: cover;
+                   display: block;
+                   transition: border-color 0.2s ease;
+                 "
+             (mouseover)="$event.target.style.borderColor='#6366f1'"
+             (mouseout)="$event.target.style.borderColor='transparent'"/>
+      </div>
+    </ng-template>
+
+  </p-galleria>
+
+} @else {
+  <!-- Placeholder -->
+  <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 320px;
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f0 100%);
+        border-radius: 12px;
+        color: #9ca3af;
+        gap: 12px;
+      ">
+    <svg style="width: 56px; height: 56px; opacity: 0.5"
+         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+    </svg>
+    <span style="font-size: 14px; font-weight: 500; color: #9ca3af;">No image available</span>
+  </div>
+}
