@@ -1,4 +1,4 @@
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {ProductService} from '../../../../service/product-service';
 import {ProductParam} from '../../../../types/ProductParams';
 import {Toast} from '../../../../service/toast';
@@ -13,6 +13,7 @@ import {ProductGallery} from '../../../Components/product-gallery/product-galler
 import {ReuseButton} from '../../../Components/reuse-button/reuse-button';
 import {Button} from 'primeng/button';
 import {DecimalPipe} from '@angular/common';
+import {BasketServices} from '../../../../service/basket-services';
 
 
 
@@ -21,7 +22,6 @@ import {DecimalPipe} from '@angular/common';
 @Component({
   selector: 'app-product-items',
   imports: [
-    Pagination,
     ProductGallery,
     ReuseButton,
     DecimalPipe,
@@ -35,10 +35,11 @@ export class ProductItems implements OnInit ,OnDestroy {
   constructor(
     private shopService: ProductService,
     private toast: Toast,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private basketService: BasketServices,
+    private cdr: ChangeDetectorRef
   ) {}
 
-  imageUrl = environment.ImageUrl;
 
   onImageError(event: Event): void {
     (event.target as HTMLImageElement).src = 'images/placeholder.png';
@@ -49,6 +50,9 @@ export class ProductItems implements OnInit ,OnDestroy {
   products: IProduct[] = [];
   totalRecords: number = 0;
 
+  setBasketValue(products:IProduct) {
+    this.basketService.addItemToBasket(products);
+  }
   ProductParam: ProductParam = {
     pageNumber: 1,
     pageSize: 10,
@@ -60,36 +64,32 @@ export class ProductItems implements OnInit ,OnDestroy {
   ngOnInit(): void {
     this.shopService.products$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(products => this.products = products);
+      .subscribe(products => {this.products = products
+        this.cdr.detectChanges();
+      });
 
     this.shopService.total$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(total => this.totalRecords = total);
+      .subscribe(total => {this.totalRecords = total
+        this.cdr.detectChanges();
+
+        });
 
     this.getProducts();
+
+    const basketId = localStorage.getItem('basketId');
+    if (basketId) {
+      this.basketService.getBasket(basketId);
+    }
   }
 
   getProducts() {
     this.shopService.loadProducts(this.ProductParam);
   }
 
-  OnChangePage(event: any) {
-    if (this.ProductParam.pageNumber != event) {
-      this.ProductParam.pageNumber = event;
-      console.log(this.ProductParam);
-      this.getProducts();
-    }
-  }
 
-  OnSearch(search: string) {
-    this.ProductParam.search = search;
-    this.getProducts();
-  }
 
-  sortingByPrice(sort: Event) {
-    this.ProductParam.Sort = (sort.target as HTMLSelectElement).value;
-    this.getProducts();
-  }
+
 
   ngOnDestroy(): void {
     this.destroy$.next();
@@ -98,4 +98,6 @@ export class ProductItems implements OnInit ,OnDestroy {
   trackById(index: number, item: IProduct): number {
     return item.id || index;
   }
+
+
 }

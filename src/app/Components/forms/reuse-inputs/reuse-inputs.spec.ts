@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProdcutCard } from './prodcut-card';
+import { ReuseInputs } from './reuse-inputs';
 
-describe('ProdcutCard', () => {
-  let component: ProdcutCard;
-  let fixture: ComponentFixture<ProdcutCard>;
+describe('ReuseInputs', () => {
+  let component: ReuseInputs;
+  let fixture: ComponentFixture<ReuseInputs>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProdcutCard]
+      imports: [ReuseInputs]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ProdcutCard);
+    fixture = TestBed.createComponent(ReuseInputs);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

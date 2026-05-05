@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {NgOptimizedImage} from '@angular/common';
+import {BasketServices} from '../../../../service/basket-services';
 
 @Component({
   selector: 'app-cart',
@@ -10,5 +11,9 @@ import {NgOptimizedImage} from '@angular/common';
   styleUrl: './cart.css',
 })
 export class Cart {
+
+  private basket = inject(BasketServices)
+
+
 
 }

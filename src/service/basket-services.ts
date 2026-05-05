@@ -1,7 +1,6 @@
 import {inject, Injectable} from '@angular/core';
-import {environment} from '../environments/environment.development';
 import {Basket, IBasket, IBasketItem} from '../types/Basket';
-import {BehaviorSubject, findIndex, map} from 'rxjs';
+import {BehaviorSubject, map} from 'rxjs';
 import {API} from './api';
 import {IProduct} from '../types/products';
 
@@ -10,22 +9,20 @@ import {IProduct} from '../types/products';
 })
 export class BasketServices {
   private api = inject(API);
-  apiUrl = environment.apiUrl;
-
   private basket = new BehaviorSubject<IBasket | null>(null);
   basket$ = this.basket.asObservable();
 
   getBasket(id:string){
-    this.api.show(`${this.apiUrl}/basket`,id).pipe(
+    this.api.show(`basket`,id).pipe(
       map((res:any)=>{
         this.basket.next(res);
         return res;
       })
-    )
+    ).subscribe();
   }
 
   setBasket(basket:IBasket){
-    return this.api.store(`${this.apiUrl}/basket`,basket).subscribe({
+    return this.api.store(`basket`,basket).subscribe({
       next: (res:any)=>{
         this.basket.next(res);
       },
@@ -39,19 +36,29 @@ export class BasketServices {
     return this.basket.value;
   }
 
-  addItemToBasket(product: IProduct,quantity: number=1){
-      const itemToAdd:IBasketItem = <IBasketItem>this.mapProductToBasketItem(product, quantity);
-      const basket = this.getCurrentValue() ?? this.CreatedBasket();
-      basket.basketItems = this.AddOrUpdate(basket.basketItems,itemToAdd ,quantity);
+  addItemToBasket(product: IProduct, Quantity: number = 1) {
+    const basket = this.getCurrentValue() ?? this.CreatedBasket();
+    const itemToAdd = this.MapProductToBasketItem(product, Quantity);
+
+    basket.basketItems = this.AddOrUpdate(basket.basketItems, itemToAdd, Quantity);
+
+    // Call the API to persist the change in Redis
+    return this.setBasket(basket);
   }
 
-  private AddOrUpdate(basketItems: IBasketItem[],itemToAdd:IBasketItem, quantity: number):IBasketItem[] {
-    const index = basketItems.findIndex(i => i.id == itemToAdd.id)
-    if(index == -1){
-      itemToAdd.quantity = quantity;
+  private AddOrUpdate(
+    basketItems: IBasketItem[],
+    itemToAdd: IBasketItem,
+    Quantity: number
+  ): IBasketItem[] {
+    const item = basketItems.find(i => i.id === itemToAdd.id);
+
+    if (item) {
+      itemToAdd.quantity = Quantity;
+      item.quantity += Quantity;
+    } else {
+      itemToAdd.quantity = Quantity;
       basketItems.push(itemToAdd);
-    }else {
-      basketItems[index].quantity += quantity;
     }
 
     return basketItems;
@@ -63,21 +70,21 @@ export class BasketServices {
     return basket;
   }
 
-  private mapProductToBasketItem(product:IProduct, quantity: number):{
-
-  } {
+  private MapProductToBasketItem(
+    product: IProduct,
+    Quantity: number
+  ): IBasketItem {
     return {
-      id:product.id,
-      category:product.categoryName,
-      image:product.photos[0].imageName,
-      name:product.name,
-      price:product.newprice,
-      quantity:quantity,
-      description:product.description
-
-
+      name: product.name,
+      id: product.id,
+      quantity: Quantity,
+      category: product.categoryName,
+      image : product.photos[0].imageName,
+      price: product.newprice,
+      description: product.description
     };
   }
+
 
 
 }

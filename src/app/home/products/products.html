@@ -1,3 +1,39 @@
+  <div class="flex items-center justify-center">
 
-  <app-product-items></app-product-items>
+        <input pInputText  #search (keyup)="OnSearch(search.value)" (keyup.enter)="OnSearch(search.value)"
+               type="text" placeholder="Search...">
+        <app-reuse-button label="Search" (click)="OnSearch(search.value)"  type="button"></app-reuse-button>
+  </div>
+
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4">
+    <div class="col-span-1 ">
+      <div class="flex items-center gap-2">
+        <label class="font-bold">Sort By:</label>
+        <p-select
+          [options]="SortingOption"
+          [(ngModel)]="ProductParam.Sort"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select Sorting"
+          (onChange)="onSortChange($event)"
+          class="w-full md:w-56">
+        </p-select>
+      </div>
+    </div>
+
+    <div class="col-span-3">
+      <app-product-items></app-product-items>
+
+    </div>
+
+  </div>
+  <app-pagination
+    [PageNumber]="ProductParam.pageNumber"
+    [PageSize]="ProductParam.pageSize"
+    [TotalRecords]="totalRecords"
+    (PageChange)="OnChangePage($event)"
+    class="fixed bottom-0 w-full"
+  >
+  </app-pagination>
 

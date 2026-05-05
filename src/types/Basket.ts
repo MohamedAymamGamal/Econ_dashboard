@@ -12,7 +12,7 @@ export interface IBasketItem {
   quantity: number;
   price: number;
   category: string;
-  description:string
+  description?:string
 }
 export class Basket implements IBasket{
 

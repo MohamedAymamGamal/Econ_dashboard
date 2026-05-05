@@ -1,0 +1,106 @@
+<div class="flex flex-col gap-1 w-full">
+
+  <!-- Label -->
+  @if (label) {
+    <label [for]="inputId" class="text-sm font-semibold text-slate-700 tracking-wide">
+      {{ label }}
+      @if (isRequired) {
+        <span class="text-red-500 ml-0.5">*</span>
+      }
+    </label>
+  }
+
+  <!-- TEXT -->
+  @if (type === 'text') {
+    <input
+      pInputText
+      [id]="inputId"
+      [placeholder]="placeholder"
+      [formControl]="asFormControl"
+      class="w-full rounded-xl border px-4 py-2.5 text-sm transition-all
+                 duration-200 outline-none focus:ring-2
+                 {{ errorClass }}"
+    />
+  }
+
+  <!-- EMAIL -->
+  @if (type === 'email') {
+    <input
+      pInputText
+      type="email"
+      [id]="inputId"
+      [placeholder]="placeholder"
+      [formControl]="asFormControl"
+      class="w-full rounded-xl border px-4 py-2.5 text-sm transition-all
+                 duration-200 outline-none focus:ring-2
+                 {{ errorClass }}"
+    />
+  }
+
+  <!-- PASSWORD -->
+  @if (type === 'password') {
+    <p-password
+      [inputId]="inputId"
+      [placeholder]="placeholder"
+      [feedback]="false"
+      [toggleMask]="true"
+      [formControl]="asFormControl"
+      [inputStyleClass]="'w-full rounded-xl border px-4 py-2.5 text-sm
+            transition-all duration-200 outline-none focus:ring-2 ' + errorClass"
+      styleClass="w-full"
+    />
+  }
+
+  <!-- NUMBER (integer) -->
+  @if (type === 'number') {
+    <p-inputNumber
+      [inputId]="inputId"
+      [placeholder]="placeholder"
+      [useGrouping]="false"
+      [formControl]="asFormControl"
+      [inputStyleClass]="'w-full rounded-xl border px-4 py-2.5 text-sm
+            transition-all duration-200 outline-none focus:ring-2 ' + errorClass"
+      styleClass="w-full"
+    />
+  }
+
+  <!-- DECIMAL -->
+  @if (type === 'decimal') {
+    <p-inputNumber
+      [inputId]="inputId"
+      [placeholder]="placeholder"
+      mode="decimal"
+      [minFractionDigits]="2"
+      [maxFractionDigits]="4"
+      [useGrouping]="false"
+      [formControl]="asFormControl"
+      [inputStyleClass]="'w-full rounded-xl border px-4 py-2.5 text-sm
+            transition-all duration-200 outline-none focus:ring-2 ' + errorClass"
+      styleClass="w-full"
+    />
+  }
+
+  <!-- TEXTAREA -->
+  @if (type === 'textarea') {
+    <textarea
+      pInputTextarea
+      [id]="inputId"
+      [placeholder]="placeholder"
+      [rows]="rows"
+      [formControl]="asFormControl"
+      class="w-full rounded-xl border px-4 py-2.5 text-sm transition-all
+                 duration-200 outline-none focus:ring-2 resize-y
+                 {{ errorClass }}"
+    ></textarea>
+  }
+
+  <!-- ERROR MESSAGES -->
+  @if (hasError) {
+    <div class="flex flex-col gap-0.5 mt-0.5">
+      @for (msg of errorMessages; track msg) {
+        <p-message severity="error" [text]="msg" styleClass="text-xs" />
+      }
+    </div>
+  }
+
+</div>
