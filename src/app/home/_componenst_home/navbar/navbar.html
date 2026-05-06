@@ -4,6 +4,30 @@
       @for(item of navItems; track $index) {
         <a [routerLink]="item.url" class="nav-link btn-secondary rounded-full p-2">{{ item.label }}</a>
       }
+
     <app-cart></app-cart>
+    <div class="flex align-items-center">
+
+      <!-- User Greeting (Optional) -->
+      <span class="hidden md:block  m-2 font-medium text-900">Jane Doe</span>
+
+      <!-- Trigger: Avatar inside a Button -->
+      <button
+        type="button"
+        pButton
+        class="p-button-rounded p-button-text p-button-plain p-0"
+        (click)="menu.toggle($event)">
+
+        <p-avatar
+          image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+          shape="circle"
+          size="large">
+        </p-avatar>
+      </button>
+
+      <!-- The Dropdown Menu -->
+      <p-menu #menu [model]="items" [popup]="true"></p-menu>
+
+    </div>
   </div>
 </nav>

@@ -8,7 +8,7 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4">
     <div class="col-span-1 ">
-      <div class="flex items-center gap-2">
+      <div class="flex flex-col gap-2">
         <label class="font-bold">Sort By:</label>
         <p-select
           [options]="SortingOption"
@@ -19,9 +19,22 @@
           (onChange)="onSortChange($event)"
           class="w-full md:w-56">
         </p-select>
+        <!-- Forced height items to test the scroll -->
+        <label for="categoryFilter" class="font-bold">Filter by Category</label>
+        <p-select
+          [options]="categories"
+          [(ngModel)]="ProductParam.CategoryId"
+          optionLabel="name"
+          optionValue="id"
+          placeholder="Select Category"
+          [showClear]="true"
+          (onChange)="onCategoryChange($event)"
+          class="w-full md:w-56">
+        </p-select>
       </div>
-    </div>
 
+
+    </div>
     <div class="col-span-3">
       <app-product-items></app-product-items>
 

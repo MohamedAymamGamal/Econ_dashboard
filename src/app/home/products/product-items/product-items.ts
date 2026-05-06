@@ -51,6 +51,10 @@ export class ProductItems implements OnInit ,OnDestroy {
   totalRecords: number = 0;
 
   setBasketValue(products:IProduct) {
+    if(!products) return this.toast.error('Product not found');
+
+    this.toast.success('Product added to basket',products.name);
+
     this.basketService.addItemToBasket(products);
   }
   ProductParam: ProductParam = {

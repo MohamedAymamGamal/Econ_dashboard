@@ -10,6 +10,8 @@ import {Select} from 'primeng/select';
 import {Pagination} from '../../Components/pagination/pagination';
 import {IProduct} from '../../../types/products';
 import {Subject, takeUntil} from 'rxjs';
+import {CategoryService} from '../../../service/category-service';
+import {RouterOutlet} from '@angular/router';
 
 interface ElementRef {
 }
@@ -37,10 +39,12 @@ export class Products implements OnInit{
     Sort: '',
     search: ''
   };
+  categories: ICateogry[] = [];
 
   // @ViewChild('search') SearchInput: ElementRef;
   // @ViewChild('SortSelected') selected: ElementRef
   private productService = inject(ProductService);
+  private categoryService = inject(CategoryService);
 
   form!: FormGroup;
   products: IProduct[] = [];
@@ -63,6 +67,7 @@ export class Products implements OnInit{
 
       });
     this.getProducts();
+    this.loadCategories();
   }
   getProducts() {
     this.productService.loadProducts(this.ProductParam);
@@ -93,4 +98,17 @@ export class Products implements OnInit{
       this.getProducts();
     }
   }
+
+  loadCategories() {
+    this.categoryService.getCategories().subscribe(data => {
+      this.categories = data;
+    });
+  }
+
+  onCategoryChange(event: any) {
+    this.ProductParam.CategoryId = event.value || '';
+    this.ProductParam.pageNumber = 1;
+    this.getProducts();
+  }
+
 }
