@@ -1,40 +1,99 @@
-<div class="card">
-  <p-dataview #dv [value]="products()">
-    <ng-template #list let-items>
-      <div class="grid grid-cols-12 gap-4 grid-nogutter">
-        <div class="col-span-12" *ngFor="let item of items; let first = first">
-          <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
-            <div class="md:w-40 relative">
-              <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
-              <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+<div class="container mx-auto p-6">
+  <div class="flex items-center justify-between mb-8">
+    <h1 class="text-3xl font-bold">Shopping Cart ({{products().length}} items)</h1>
+    @if (products().length > 0) {
+      <app-reuse-button
+        label="Clear Cart"
+        type="button"
+        icon="pi pi-trash"
+        class="p-button-danger p-button-text"
+        (click)="removeAllBesketItems()">
+      </app-reuse-button>
+    }
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+    <!-- 1. Product List Section -->
+    <div class="lg:col-span-8">
+      <div class="flex flex-col gap-4">
+        @for(product of products(); track product.id) {
+          <div class="flex flex-col md:flex-row items-center p-4 bg-primary shadow-sm border-round rounded-lg border-1 border-gray-100 gap-6">
+            <!-- Fixed Image Binding -->
+            <img [src]="product.image[0]" [alt]="product.name" class="w-32 h-32 object-cover border-round" />
+
+            <div class="flex-grow">
+              <h3 class="text-xl  text-secondary font-semibold text-gray-800">{{product.name}}</h3>
+              <p-tag severity="success" value="In Stock" [rounded]="true" styleClass="text-xs"></p-tag>
             </div>
-            <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
-              <div class="flex flex-row md:flex-col justify-between items-start gap-2">
-                <div>
-                  <span class="font-medium text-secondary text-sm">{{ item.category }}</span>
-                  <div class="text-lg font-medium text-surface-900 dark:text-surface-0 mt-2">{{ item.name }}</div>
-                </div>
-                <div class="bg-surface-100 dark:bg-surface-700 p-1" style="border-radius: 30px">
-                  <div
-                    class="bg-surface-0 dark:bg-surface-900 flex items-center gap-2 justify-center py-1 px-2"
-                    style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"
-                  >
-                    <span class="text-surface-900 dark:text-surface-0 font-medium text-sm">{{ item.rating }}</span>
-                    <i class="pi pi-star-fill text-yellow-500"></i>
-                  </div>
-                </div>
-              </div>
-              <div class="flex flex-col md:items-end gap-8">
-                <span class="text-xl font-semibold text-surface-900 dark:text-surface-0">{{ '$' + item.price }}</span>
-                <div class="flex flex-row-reverse md:flex-row gap-2">
-                  <p-button icon="pi pi-heart" [outlined]="true" />
-                  <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial whitespace-nowrap" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" />
-                </div>
+
+            <div class="flex flex-col items-end gap-3">
+              <span class="text-xl font-bold text-gray-900">{{ product.price | currency }}</span>
+              <div class="flex items-center justify-center ">
+                <p-inputNumber
+                  [(ngModel)]="product.quantity"
+                  [showButtons]="true"
+                  buttonLayout="horizontal"
+                  [inputStyle]="{ width: '2.5rem' }"
+                  spinnerMode="horizontal"
+                  decrementButtonClass="p-button-secondary p-button-text"
+                  incrementButtonClass="p-button-secondary p-button-text"
+                  incrementButtonIcon="pi pi-plus"
+                  decrementButtonIcon="pi pi-minus"
+                  [min]="1"
+                ></p-inputNumber>
+<!--                <p-button icon="pi pi-trash" severity="danger" [text]="true" (click)="removeSingleItem(product.id)"></p-button>-->
               </div>
             </div>
           </div>
-        </div>
+        } @empty {
+          <!-- This is the correct way to handle empty lists in Angular 17+ -->
+          <div class="text-center py-32 bg-gray-50 border-round border-2 rounded-lg bg-primary border-dashed border-gray-200">
+            <i class="pi pi-shopping-cart text-4xl mb-4 text-gray-400"></i>
+            <h2 class="text-2xl font-bold text-gray-500">Your cart is empty</h2>
+            <p-button label="Go Shopping" routerLink="/products" class="mt-4" styleClass="p-button-link"></p-button>
+          </div>
+        }
       </div>
-    </ng-template>
-  </p-dataview>
+    </div>
+
+    <!-- 2. Order Summary Section -->
+    <div class="lg:col-span-4">
+      <p-card header="Order Summary" [style]="{ 'background-color': 'var(--color-bg)', 'color': 'var(--color-light)' }">
+        <div class="flex flex-col gap-4">
+          <!-- Text classes adjusted for contrast -->
+          <div class="flex justify-between">
+            <span class="opacity-80">Subtotal</span>
+            <span class="font-semibold">{{ calculateSubtotal() | currency }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="opacity-80">Shipping</span>
+            <span class="text-green-400 font-medium">Free</span>
+          </div>
+
+          <p-divider></p-divider>
+
+          <div class="flex justify-between text-xl font-bold">
+            <span>Total</span>
+            <span class="text-white">{{ (calculateSubtotal() * 1.05) | currency }}</span>
+
+          </div>
+<!--          <div class="flex justify-center items-center w-full ">-->
+<!--            <app-reuse-button-->
+<!--              label="Proceed to Checkout"-->
+<!--              icon="pi pi-check-circle"-->
+<!--              class="w-full mt-4"-->
+<!--              type="button">-->
+<!--            </app-reuse-button>-->
+<!--          </div>-->
+          <button pButton icon="pi pi-check-circle" class="w-full bg-primary rounded-lg mt-4">Proceed to Checkout</button>
+
+          <div class="flex items-center justify-center gap-2 mt-4 text-sm opacity-60">
+            <i class="pi pi-shield"></i>
+            <span>Secure SSL Checkout</span>
+          </div>
+        </div>
+      </p-card>
+    </div>
+  </div>
 </div>

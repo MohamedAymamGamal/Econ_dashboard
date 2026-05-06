@@ -41,9 +41,7 @@ export class ProductItems implements OnInit ,OnDestroy {
   ) {}
 
 
-  onImageError(event: Event): void {
-    (event.target as HTMLImageElement).src = 'images/placeholder.png';
-  }
+
 
 
   private destroy$ = new Subject<void>();

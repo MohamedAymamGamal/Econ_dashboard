@@ -36,7 +36,7 @@ body {
 .text-tertiary  { color: var(--color-tertiary); }
 .text-light     { color: var(--color-light); }
 .bg-primary     { background-color: var(--color-bg); }
-
+.bg-light       { background-color: var(--color-light); }
 /* ══════════════════════════════════════════════════════════════════════════
    BUTTONS
    ══════════════════════════════════════════════════════════════════════════ */

@@ -1,6 +1,6 @@
 <div class="relative inline-block">
 
-  <p-overlaybadge  styleClass="text-primary" value="{{basketItemsCount}}">
+  <p-overlaybadge  styleClass="text-primary" value="{{basketItemsCount$ | async}}">
     <a routerLink="/home/cart">
       <i class="pi pi-shopping-bag cursor-pointer hover:text-primary" style="font-size: 2rem"></i>
 
