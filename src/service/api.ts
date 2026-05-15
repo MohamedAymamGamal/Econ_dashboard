@@ -38,4 +38,19 @@ export class API {
     return this.http.delete<R>(`${this.apiUrl}/${path}/${id}`,);
   }
 
+  download(path: string){
+    return this.http.get(`${this.apiUrl}/${path}`,{
+      responseType: 'blob',
+      observe : 'response',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/pdf',
+        'content-type': 'muilt-part/form-data'
+
+      },
+      withCredentials: true,
+
+    })
+  }
+
 }

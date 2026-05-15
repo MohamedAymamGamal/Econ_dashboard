@@ -9,13 +9,12 @@ import {Divider} from 'primeng/divider';
 import {Card} from 'primeng/card';
 import {InputNumber} from 'primeng/inputnumber';
 import {FormsModule} from '@angular/forms';
-import {ReuseButton} from '../../Components/reuse-button/reuse-button';
 import {Toast} from '../../../service/toast';
 import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-cart-page',
-  imports: [ButtonModule, DataViewModule, TagModule, CommonModule, Divider, Card, InputNumber, FormsModule, ReuseButton, RouterLink],
+  imports: [ButtonModule, DataViewModule, TagModule, CommonModule, Divider, Card, InputNumber, FormsModule, RouterLink],
   templateUrl: './cart-page.html',
   styleUrl: './cart-page.css',
 })
@@ -44,11 +43,20 @@ export class CartPage implements OnInit {
   calculateSubtotal() {
     return this.products().reduce((acc, item) => acc + (item.price * (item.quantity || 1)), 0);
   }
+  RemoveBasket(item:IBasketItem){
+    this.basketService.removeItemFormBasket(item)
 
-  removeAllBesketItems(){
-    const items = localStorage.removeItem('basketId');
-    this.toast.success('Basket items removed successfully','you removed' + this.products().length + 'items');
+  }
 
+  clearCart() {
+    const basketId = localStorage.getItem('basketId');
+    if (basketId) {
+      this.products.set([]);
+
+    }
+  }
+  getBasket(basket:IBasket){
+    console.log(basket)
   }
 
 }

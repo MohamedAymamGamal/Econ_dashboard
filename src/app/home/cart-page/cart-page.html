@@ -2,13 +2,15 @@
   <div class="flex items-center justify-between mb-8">
     <h1 class="text-3xl font-bold">Shopping Cart ({{products().length}} items)</h1>
     @if (products().length > 0) {
-      <app-reuse-button
-        label="Clear Cart"
-        type="button"
-        icon="pi pi-trash"
-        class="p-button-danger p-button-text"
-        (click)="removeAllBesketItems()">
-      </app-reuse-button>
+<!--      <app-reuse-button-->
+<!--        label="Clear Cart"-->
+<!--        type="button"-->
+<!--        icon="pi pi-trash"-->
+<!--        class="p-button-danger p-button-text"-->
+<!--        (click)="clearCart()"-->
+<!--      >-->
+<!--      </app-reuse-button>-->
+
     }
   </div>
 
@@ -18,7 +20,7 @@
     <div class="lg:col-span-8">
       <div class="flex flex-col gap-4">
         @for(product of products(); track product.id) {
-          <div class="flex flex-col md:flex-row items-center p-4 bg-primary shadow-sm border-round rounded-lg border-1 border-gray-100 gap-6">
+          <div class="flex flex-col md:flex-row items-center p-4 bg-primary shadow-sm border-round rounded-lg border border-gray-100 gap-6">
             <!-- Fixed Image Binding -->
             <img [src]="product.image[0]" [alt]="product.name" class="w-32 h-32 object-cover border-round" />
 
@@ -42,8 +44,9 @@
                   decrementButtonIcon="pi pi-minus"
                   [min]="1"
                 ></p-inputNumber>
-<!--                <p-button icon="pi pi-trash" severity="danger" [text]="true" (click)="removeSingleItem(product.id)"></p-button>-->
+                <p-button icon="pi pi-trash" severity="danger" [text]="true" (click)="RemoveBasket(product)"></p-button>
               </div>
+
             </div>
           </div>
         } @empty {
@@ -51,7 +54,7 @@
           <div class="text-center py-32 bg-gray-50 border-round border-2 rounded-lg bg-primary border-dashed border-gray-200">
             <i class="pi pi-shopping-cart text-4xl mb-4 text-gray-400"></i>
             <h2 class="text-2xl font-bold text-gray-500">Your cart is empty</h2>
-            <p-button label="Go Shopping" routerLink="/products" class="mt-4" styleClass="p-button-link"></p-button>
+            <p-button label="Go Shopping" routerLink="/home/products" class="mt-4" styleClass="p-button-link"></p-button>
           </div>
         }
       </div>
@@ -79,14 +82,14 @@
 
           </div>
 <!--          <div class="flex justify-center items-center w-full ">-->
-<!--            <app-reuse-button-->
+<!--            <app-submit-button-->
 <!--              label="Proceed to Checkout"-->
 <!--              icon="pi pi-check-circle"-->
 <!--              class="w-full mt-4"-->
 <!--              type="button">-->
-<!--            </app-reuse-button>-->
+<!--            </app-submit-button>-->
 <!--          </div>-->
-          <button pButton icon="pi pi-check-circle" class="w-full bg-primary rounded-lg mt-4">Proceed to Checkout</button>
+          <button pButton icon="pi pi-check-circle" class="w-full bg-primary rounded-lg mt-4" >Proceed to Checkout</button>
 
           <div class="flex items-center justify-center gap-2 mt-4 text-sm opacity-60">
             <i class="pi pi-shield"></i>

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReuseButton } from './reuse-button';
+import { RegisterForm } from './register-form';
 
-describe('ReuseButton', () => {
-  let component: ReuseButton;
-  let fixture: ComponentFixture<ReuseButton>;
+describe('RegisterForm', () => {
+  let component: RegisterForm;
+  let fixture: ComponentFixture<RegisterForm>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReuseButton]
+      imports: [RegisterForm]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ReuseButton);
+    fixture = TestBed.createComponent(RegisterForm);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

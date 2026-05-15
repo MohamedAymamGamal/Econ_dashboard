@@ -1,0 +1,24 @@
+<form [formGroup]="form" class="grid grid-cols-1 gap-5">
+<!--  <app-text-field-->
+<!--    [control]="form.controls['email']"-->
+<!--    label="Email"-->
+<!--  ></app-text-field>-->
+<!--  <app-text-field-->
+<!--    [control]="form.controls['password']"-->
+<!--    label="Password"-->
+<!--    type="password"-->
+<!--  ></app-text-field>-->
+<app-reuse-inputs
+  [control]="form.controls['email']"
+  label="Email"
+>
+
+</app-reuse-inputs>
+  <p-button
+    icon = "pi pi-sign-in"
+    type="submit"
+    label="Login"
+    fluid
+  />
+
+</form>

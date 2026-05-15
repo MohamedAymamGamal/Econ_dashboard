@@ -1,0 +1,35 @@
+<div class="flex flex-col gap-2 ">
+  <p-checkbox [formControl]="getFormControl()"
+              [binary]="true"
+              [disabled]="disabled"
+  >
+  </p-checkbox>
+  <label>{{label}}</label>
+</div>
+
+@if((control.touched || control.dirty) && control.invalid){
+  <div class="pt-1 flex gap-3">
+    <div class="block w-30 shrink-0"></div>
+    <div>
+      @if (control.hasError('required')) {
+        <p-message severity="error" size="small" icon="pi pi-times-circle" i18n="@@required"
+        >This field is required</p-message
+        >
+      }
+      @if (control.hasError('email')) {
+        <p-message severity="error" size="small" icon="pi pi-times-circle" i18n="@@email_invalid"
+        >Invalid email format</p-message
+        >
+      }
+      @if (control.hasError('minlength')) {
+        <p-message severity="error" size="small" icon="pi pi-times-circle" i18n="@@min_length">
+          Minimum
+          {{ control.getError('minlength')?.requiredLength }}:INTERPOLATION:! characters
+        </p-message>
+      }
+      @if (control.hasError('passwordMismatch')) {
+        <p-message severity="error">Passwords do not match</p-message>
+      }
+    </div>
+  </div>
+}

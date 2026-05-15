@@ -1,0 +1,12 @@
+<p-button
+  type="submit"
+  (onClick)="submit()"
+  [disabled]="formAction.loading || form.invalid || disabled"
+  [icon]="icon"
+  [loading]="formAction.loading"
+  [label]="label"
+  fluid="fluid"
+  [outlined]="outlined"
+>
+
+</p-button>

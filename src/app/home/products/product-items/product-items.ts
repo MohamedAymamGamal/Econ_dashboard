@@ -10,7 +10,6 @@ import {Subject, takeUntil} from 'rxjs';
 import {environment} from '../../../../environments/environment.development';
 import {ImageUrlPipe} from '../../../pipes/empty-profile-image-pipe-pipe';
 import {ProductGallery} from '../../../Components/product-gallery/product-gallery';
-import {ReuseButton} from '../../../Components/reuse-button/reuse-button';
 import {Button} from 'primeng/button';
 import {DecimalPipe} from '@angular/common';
 import {BasketServices} from '../../../../service/basket-services';
@@ -23,7 +22,6 @@ import {BasketServices} from '../../../../service/basket-services';
   selector: 'app-product-items',
   imports: [
     ProductGallery,
-    ReuseButton,
     DecimalPipe,
 
 

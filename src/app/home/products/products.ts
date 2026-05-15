@@ -3,7 +3,6 @@ import {ProductItems} from './product-items/product-items';
 import {ProductService} from '../../../service/product-service';
 import {ProductParam} from '../../../types/ProductParams';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ReuseButton} from '../../Components/reuse-button/reuse-button';
 import {ICateogry} from '../../../types/Category';
 import {InputText} from 'primeng/inputtext';
 import {Select} from 'primeng/select';
@@ -21,7 +20,6 @@ interface ElementRef {
   imports: [
     ProductItems,
 
-    ReuseButton,
     ReactiveFormsModule,
     InputText,
     Select,

@@ -85,6 +85,58 @@ export class BasketServices {
     };
   }
 
+  incrementBasketItemQuantity(item:IBasketItem){
+    const basket = this.getCurrentValue();
+    if (!basket) {
+      throw new Error('Basket is null. Cannot increment or decrement item quantity.');
+    }
+    const Items = basket.basketItems.findIndex(i => i.id === item.id);
+    basket.basketItems[Items].quantity++;
+    return this.setBasket(basket);
+  }
 
+  DecrementBasketItemQuantity(item:IBasketItem){
+    const basket = this.getCurrentValue()
+
+    if (!basket) {
+      throw new Error('Basket is null. Cannot increment or decrement item quantity.');
+    }
+    const Items = basket.basketItems.findIndex(i => i.id === item.id);
+
+    if(basket.basketItems[Items].quantity > 1){
+      basket.basketItems[Items].quantity--;
+    } else {
+      return this.setBasket(basket);
+
+    }
+    return this.setBasket(basket);
+  }
+
+  removeItemFormBasket(item: IBasketItem) {
+    const basket = this.getCurrentValue();
+    if (!basket) {
+      throw new Error('Basket is null. Cannot remove item.');
+    }
+    if (basket.basketItems.some((i) => i.id === item.id)) {
+      basket.basketItems = basket.basketItems.filter((i) => i.id !== item.id);
+      if (basket.basketItems.length > 0) {
+        this.setBasket(basket);
+      } else {
+        this.deleteBasketItems(basket);
+      }
+    }
+  }
+
+  deleteBasketItems(basket:IBasket){
+    this.api.destroy(`basket`,basket.id).pipe(
+      map((res:any)=>{
+        this.basket.next(res);
+        localStorage.removeItem('basketId');
+        return res;
+      },),
+
+    ).subscribe();
+  }
 
 }
+

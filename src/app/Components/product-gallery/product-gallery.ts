@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {IPhoto} from '../../../types/products';
+import {IPhoto, IProduct} from '../../../types/products';
 import {GalleriaModule} from 'primeng/galleria';
 import {ImageUrlPipe} from '../../pipes/empty-profile-image-pipe-pipe';
 
@@ -21,4 +21,6 @@ export class ProductGallery {
   onImageError(event: Event): void {
     (event.target as HTMLImageElement).src = 'assets/images/placeholder.png';
   }
+
+
 }

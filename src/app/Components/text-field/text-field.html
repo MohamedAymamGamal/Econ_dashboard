@@ -1,0 +1,65 @@
+<div
+  class="w-full min-w-100 flex items-center gap-3"
+  [ngClass]="direction === 'row' ? '' : 'flex-col items-start'"
+>
+  <label class="block w-30 shrink-0" [ngClass]="direction === 'row' ? '' : 'w-full'">{{
+      label
+    }}</label>
+
+  @if (inputType === 'textarea') {
+    <textarea
+      pTextarea
+      fluid
+      [rows]="rows"
+      [formControl]="getFormControl()"
+      [placeholder]="placeholder"
+      [invalid]="control.touched && control.invalid"
+    ></textarea>
+  } @else {
+    <p-iconfield class="w-full">
+      <p-inputicon [class]="icon" />
+      <input
+        pInputText
+        fluid
+        [type]="inputTypeForPassword"
+        [formControl]="getFormControl()"
+        [placeholder]="placeholder"
+        [invalid]="control.touched && control.invalid"
+        [value]="value"
+      />
+      @if (type === 'password') {
+        <p-inputicon
+          [class]="passwordVisible ? 'pi pi-eye-slash' : 'pi pi-eye'"
+          (click)="togglePasswordVisibility()"
+          class="cursor-pointer"
+        />
+      }
+    </p-iconfield>
+  }
+</div>
+@if (validate && (control.touched || control.dirty) && control.invalid) {
+  <div class="pt-1 flex gap-3">
+    <div class="block w-30 shrink-0"></div>
+    <div>
+      @if (control.hasError('required')) {
+        <p-message severity="error" size="small" icon="pi pi-times-circle" i18n="@@required"
+        >This field is required</p-message
+        >
+      }
+      @if (control.hasError('email')) {
+        <p-message severity="error" size="small" icon="pi pi-times-circle" i18n="@@email_invalid"
+        >Invalid email format</p-message
+        >
+      }
+      @if (control.hasError('minlength')) {
+        <p-message severity="error" size="small" icon="pi pi-times-circle" i18n="@@min_length">
+          Minimum
+          {{ control.getError('minlength')?.requiredLength }}:INTERPOLATION:! characters
+        </p-message>
+      }
+      @if (control.hasError('passwordMismatch')) {
+        <p-message severity="error">Passwords do not match</p-message>
+      }
+    </div>
+  </div>
+}
