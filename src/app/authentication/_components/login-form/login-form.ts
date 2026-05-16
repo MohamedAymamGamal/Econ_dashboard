@@ -1,48 +1,50 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {FormActionService} from '../../../../service/form-action.service';
-import {Router} from '@angular/router';
-import {TextField} from '../../../Components/text-field/text-field';
-import {Button} from 'primeng/button';
-import {ReuseInputs} from '../../../Components/forms/reuse-inputs/reuse-inputs';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormActionService } from '../../../../service/form-action.service';
+import { Router } from '@angular/router';
+import { TextField } from '../../../Components/text-field/text-field';
+import { Button } from 'primeng/button';
+import { ReuseInputs } from '../../../Components/forms/reuse-inputs/reuse-inputs';
+
+import {SubmitButtonComponent} from '../../../Components/submit-button/submit-button';
 
 @Component({
   selector: 'app-login-form',
   imports: [
     ReactiveFormsModule,
-    Button,
-    TextField,
+
     ReuseInputs,
+
+    SubmitButtonComponent,
   ],
   templateUrl: './login-form.html',
   styleUrl: './login-form.css',
 })
-export class LoginForm  {
+export class LoginForm {
+  private fb = inject(FormBuilder);
+  private formActionService = inject(FormActionService);
+  private router = inject(Router);
+
   isSubmitting = false;
-  form!: FormGroup;
 
-    constructor(
-      private fb: FormBuilder,
-    ) {
-      this.form = this.fb.group({
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(8)]],
-      });
+  // FIX: Initialize immediately on declaration so the template never reads 'undefined'
+  form: FormGroup = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
 
-      // this.loadingService.loading$.subscribe((isLoading) => {
-      //   this.isSubmitting = isLoading;
-      // });
+  }
+
+  );
+
+
+  submit() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
     }
 
-  //
-  // submit() {
-  //   this.formActionService.execute('create', 'login', this.form.value, undefined, (res) => {
-  //     localStorage.setItem('tenant_id', res.tenant_id as string);
-  //
-  //   });
-  // }
+    this.isSubmitting = true;
 
 
-
+  }
 }
-

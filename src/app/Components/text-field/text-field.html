@@ -53,8 +53,8 @@
       }
       @if (control.hasError('minlength')) {
         <p-message severity="error" size="small" icon="pi pi-times-circle" i18n="@@min_length">
-          Minimum
-          {{ control.getError('minlength')?.requiredLength }}:INTERPOLATION:! characters
+
+          Minimum {{ control.getError('minlength')?.requiredLength }} characters
         </p-message>
       }
       @if (control.hasError('passwordMismatch')) {

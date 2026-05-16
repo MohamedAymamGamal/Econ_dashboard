@@ -1,1 +1,53 @@
-<p>register-form works!</p>
+<div [formGroup]="form" class="grid grid-cols-1 gap-5" >
+
+
+  <app-reuse-inputs
+    [control]="form.get('username')!"
+    label="username"
+    type="text"
+    id="email"
+  ></app-reuse-inputs>
+  <app-reuse-inputs
+    [control]="form.get('displayName')!"
+    label="displayName"
+    type="text"
+    id="email"
+  ></app-reuse-inputs>
+
+
+  <app-reuse-inputs
+    [control]="form.get('email')!"
+    label="Email"
+    type="email"
+    id="email"
+  ></app-reuse-inputs>
+
+
+  <app-reuse-inputs
+    [control]="form.get('password')!"
+    label="password"
+    type="password"
+  ></app-reuse-inputs>
+  <app-reuse-inputs
+    [control]="form.get('confirmPassword')!"
+    label="confirm Password"
+    type="password"
+  ></app-reuse-inputs>
+  <!-- Added [loading] binding to match your submission state -->
+
+
+  <div class="flex flex-col items-center w-full ">
+    <div class="grid grid-cols-1  ">
+      <div >
+        <app-submit-button
+          route="account/register"
+          mode="create"
+          label="Create New Account"
+          icon="pi pi-sign-in"
+          redirectRoute="/authentication/email-verification"
+        />
+      </div>w
+
+    </div>
+  </div>
+</div>

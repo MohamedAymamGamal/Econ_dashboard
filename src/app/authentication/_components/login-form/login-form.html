@@ -1,24 +1,36 @@
-<form [formGroup]="form" class="grid grid-cols-1 gap-5">
-<!--  <app-text-field-->
-<!--    [control]="form.controls['email']"-->
-<!--    label="Email"-->
-<!--  ></app-text-field>-->
-<!--  <app-text-field-->
-<!--    [control]="form.controls['password']"-->
-<!--    label="Password"-->
-<!--    type="password"-->
-<!--  ></app-text-field>-->
-<app-reuse-inputs
-  [control]="form.controls['email']"
-  label="Email"
->
+<!-- Added (ngSubmit) so pressing Enter inside inputs triggers submission automatically -->
+<form [formGroup]="form" (ngSubmit)="submit()" class="grid grid-cols-1 gap-5">
 
-</app-reuse-inputs>
-  <p-button
-    icon = "pi pi-sign-in"
-    type="submit"
-    label="Login"
-    fluid
-  />
+  <app-reuse-inputs
+    [control]="form.get('email')!"
+    label="Email"
+    type="email"
+    id="email"
+  ></app-reuse-inputs>
+
+
+  <app-reuse-inputs
+    [control]="form.get('password')!"
+    label="password"
+    type="password"
+  ></app-reuse-inputs>
+  <!-- Added [loading] binding to match your submission state -->
+
+
+  <div class="flex flex-col items-center w-full ">
+    <div class="grid grid-cols-1  ">
+      <div >
+        <app-submit-button
+        route="register"
+        mode="create"
+        label="Create New Account"
+        icon="pi pi-sign-in"
+        redirectRoute="/authentication/login"
+      />
+      </div>
+
+    </div>
+  </div>
+
 
 </form>

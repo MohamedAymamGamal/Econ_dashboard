@@ -13,8 +13,8 @@ import {FormActionService} from '../../../service/form-action.service';
 })
 export class SubmitButtonComponent implements OnInit {
   @Output() submitEvent = new EventEmitter<void>();
-  @Input({ required: true }) route!: string;
-  @Input({ required: true }) mode!: FormMode;
+  @Input() route!: string;
+  @Input() mode!: FormMode;
   @Input() id?: number | string;
   @Input() fluid: boolean = false;
   @Input() label: string = '';

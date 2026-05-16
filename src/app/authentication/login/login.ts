@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 import { LoginForm } from '../_components/login-form/login-form';
+import {RouterLink} from '@angular/router';
+import {NgOptimizedImage} from '@angular/common';
 
 @Component({
   selector: 'app-login',
   imports: [
-    LoginForm
+    LoginForm,
+    RouterLink,
+    NgOptimizedImage
 
 
   ],

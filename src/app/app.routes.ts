@@ -21,9 +21,15 @@ export const routes: Routes = [
       //   path: "forget-password",
       //   loadComponent: () => import('./authentication/forget-password/forget-password').then((m) => m.ForgetPassword),
       // },
+
       {
         path: 'register',
         loadComponent: () => import('./authentication/register/register').then((m) => m.Register),
+      },
+
+      {
+        path: 'email-verification',
+        loadComponent: () => import('./authentication/email-verification/email-verification').then((m) => m.EmailVerification),
       },
     ]
   },

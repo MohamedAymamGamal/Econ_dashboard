@@ -5,6 +5,7 @@ import { routes } from './app.routes';
 import Aura from '@primeuix/themes/aura';
 import {providePrimeNG} from 'primeng/config';
 import {ConfirmationService, MessageService} from 'primeng/api';
+import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,13 +14,12 @@ export const appConfig: ApplicationConfig = {
     // provideHttpClient(withInterceptors())
     MessageService,
     ConfirmationService,
-
     providePrimeNG({
       theme: {
         preset: Aura,
         options: {
           prefix: 'p',
-          darkModeSelector: 'system',
+          darkModeSelector: 'disabled',
           cssLayer: false
         }
       }

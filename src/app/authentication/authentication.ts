@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import {RouterOutlet} from '@angular/router';
+import {RouterLink, RouterOutlet} from '@angular/router';
 import {NgOptimizedImage} from '@angular/common';
+import {SubmitButtonComponent} from '../Components/submit-button/submit-button';
 
 @Component({
   selector: 'app-authentication',
   imports: [
     RouterOutlet,
-    NgOptimizedImage
+    NgOptimizedImage,
+    RouterLink,
   ],
   templateUrl: './authentication.html',
   styleUrl: './authentication.css',
