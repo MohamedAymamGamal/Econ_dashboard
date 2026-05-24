@@ -1,63 +1,112 @@
-<div [formGroup]="form" class="grid grid-cols-1 gap-5" >
-
-
+<div [formGroup]="form" class="grid grid-cols-1 gap-5">
   <app-reuse-inputs
     [control]="form.get('username')!"
     label="username"
     type="text"
-    id="email"
+    id="username"
   ></app-reuse-inputs>
+
   <app-reuse-inputs
     [control]="form.get('displayName')!"
     label="displayName"
     type="text"
-    id="email"
+    id="displayName"
   ></app-reuse-inputs>
-
 
   <app-reuse-inputs
     [control]="form.get('email')!"
     label="Email"
     type="email"
     id="email"
-  >
-</app-reuse-inputs>
-<div class="flex flex-col gap-1">
-    <ngxsmk-tel-input
-      [formControlName]="'PhoneNumber'"
-      dir="ltr"
-      class="border-2 w-full block"
-      placeholder="Enter phone number"
-      [initialCountry]="'SA'"
-      [preferredCountries]="['SA', 'EG', 'US']"
-      [separateDialCode]="true"
-      [theme]="'light'"
-      style="
-        --tel-border:#5d2de0;
-        --tel-ring:#5d2de0;
-        --tel-border-radius:12px;
-        --tel-focus:#5d2de0;
-        --tel-radius:4px;
-        --tel-dd-item-hover: rgba(34,197,94,.12);
-        --tel-dd-z: 3000";
-        --tel-height: 48px;
-        --tel-width: 100%;
-      [formatWhenValid]="'typing'"
-      [lockWhenValid]="true"
-      [onlyCountries] ="['SA', 'EG', 'US', 'SA']"
-      >
-    </ngxsmk-tel-input>
+  ></app-reuse-inputs>
 
-    @if (form.get('PhoneNumber')?.touched && form.get('PhoneNumber')?.invalid) {
-      <div class="mt-1.5 text-xs text-red-600 flex items-center gap-1 font-medium">
-        @if (form.get('PhoneNumber')?.errors?.['required']) {
-          <span>Phone number is required.</span>
-        }
-        @if (form.get('PhoneNumber')?.errors?.['invalidPhone']) {
-          <span>Invalid format for the selected country.</span>
-        }
-      </div>
-    }
+  <div class="grid w-full">
+    <div class="p-inputgroup flex flex-row items-center shrink-0">
+      <!-- Country Selector -->
+      <p-select
+        formControlName="country"
+        [options]="countries"
+        optionLabel="name"
+        optionValue="code"
+        placeholder="Select"
+        [filter]="true"
+        class="shrink-0 w-32"
+        filterBy="name,dialCode"
+      >
+        <!-- Selected Item -->
+        <ng-template pTemplate="selectedItem" let-country>
+          <div class="flex items-center gap-2 shrink-0">
+            <img
+              [ngSrc]="country.image"
+              [alt]="country.name"
+              width="28"
+              height="14"
+              class="rounded-sm"
+            />
+
+            <span class="font-medium text-sm">
+              {{ country.dialCode }}
+            </span>
+          </div>
+        </ng-template>
+
+        <!-- Dropdown Item -->
+        <ng-template pTemplate="item" let-country>
+          <div class="flex items-center justify-between w-full gap-3 py-1">
+            <div class="flex items-center gap-2">
+              <img
+                [ngSrc]="country.image"
+                [alt]="country.name"
+                width="24"
+                height="24"
+                class="rounded-sm"
+              />
+
+              <span class="text-sm">
+                {{ country.code }}
+              </span>
+            </div>
+
+            <span class="font-semibold text-sm text-primary">
+              {{ country.dialCode }}
+            </span>
+          </div>
+        </ng-template>
+      </p-select>
+      <input
+        inputmode="integeronly"
+        formControlName="phoneNumber"
+        [placeholder]="currentPlaceholder"
+        class="p-inputtext flex-1 w-full h-full"
+      />
+    </div>
+    <div class="mt-2" *ngIf="form.get('phoneNumber')?.invalid && form.get('phoneNumber')?.touched">
+      <p-message
+        *ngIf="form.get('phoneNumber')?.errors?.['required']"
+        severity="error"
+        size="small"
+        text="Phone number is required."
+      >
+      </p-message>
+
+      <p-message
+        *ngIf="form.get('phoneNumber')?.errors?.['invalidPhoneStructure']"
+        severity="error"
+        size="small"
+        [text]="form.get('phoneNumber')?.errors?.['invalidPhoneStructure']?.message"
+      >
+      </p-message>
+    </div>
+    <!-- reuse input -->
+    <!-- <app-reuse-inputs
+      [control]="form.get('phoneNumber')!"
+      label="phone Number"
+      type="text"
+      id="phoneNumber"
+      class="w-full"
+    ></app-reuse-inputs> -->
+
+    <!-- Validation -->
   </div>
 
   <app-reuse-inputs
@@ -65,26 +114,25 @@
     label="password"
     type="password"
   ></app-reuse-inputs>
+
   <app-reuse-inputs
     [control]="form.get('confirmPassword')!"
     label="confirm Password"
     type="password"
   ></app-reuse-inputs>
-  <!-- Added [loading] binding to match your submission state -->
 
-
-  <div class="flex flex-col items-center w-full ">
-    <div class="grid grid-cols-1  ">
-      <div >
+  <div class="flex flex-col items-center w-full mt-4">
+    <div class="grid grid-cols-1">
+      <div>
         <app-submit-button
           route="account/register"
           mode="create"
           label="Create New Account"
           icon="pi pi-sign-in"
           redirectRoute="/authentication/email-verification"
+          [disabled]="form.invalid"
         />
       </div>
-
     </div>
   </div>
 </div>
