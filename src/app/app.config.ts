@@ -2,10 +2,9 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import Aura from '@primeuix/themes/aura';
 import {providePrimeNG} from 'primeng/config';
 import {ConfirmationService, MessageService} from 'primeng/api';
-import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
+import { Preset } from './preset';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,12 +14,15 @@ export const appConfig: ApplicationConfig = {
     MessageService,
     ConfirmationService,
     providePrimeNG({
+      ripple: true,
+
       theme: {
-        preset: Aura,
+        preset: Preset,
         options: {
           prefix: 'p',
           darkModeSelector: 'disabled',
-          cssLayer: false
+          ripple: true,
+
         }
       }
     })

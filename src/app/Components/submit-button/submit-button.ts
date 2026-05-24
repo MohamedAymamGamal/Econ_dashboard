@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ControlContainer, FormGroup } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+
 import { Router } from '@angular/router';
-import {FormMode} from '../../../types/FromMode';
-import {FormActionService} from '../../../service/form-action.service';
+import { FormActionService } from '../../../service/form-action.service';
+import { FormMode } from '../../../types/FromMode';
 
 @Component({
   selector: 'app-submit-button',
@@ -13,12 +14,11 @@ import {FormActionService} from '../../../service/form-action.service';
 })
 export class SubmitButtonComponent implements OnInit {
   @Output() submitEvent = new EventEmitter<void>();
-  @Input() route!: string;
+  @Input( ) route!: string;
   @Input() mode!: FormMode;
   @Input() id?: number | string;
+  @Input() label: string = 'Save';
   @Input() fluid: boolean = false;
-  @Input() label: string = '';
-
   @Input() icon: string = 'pi pi-save';
   @Input() redirectRoute?: string;
   @Input() outlined: boolean = false;
@@ -30,10 +30,13 @@ export class SubmitButtonComponent implements OnInit {
 
   constructor(
     private controlContainer: ControlContainer,
-    public formAction: FormActionService,
+    public fromAction: FormActionService,
     private router: Router,
   ) {}
 
+  get isRTL() {
+    return document.dir === 'rtl';
+  }
 
   ngOnInit() {
     this.form = this.controlContainer.control as FormGroup;
@@ -57,7 +60,7 @@ export class SubmitButtonComponent implements OnInit {
         });
       }
 
-      this.formAction.execute(this.mode, this.route, formData, this.id, (res) => {
+      this.fromAction.execute(this.mode, this.route, formData, this.id, (res) => {
         this.form.reset();
         this.file = null;
         this.files = [];
@@ -72,7 +75,7 @@ export class SubmitButtonComponent implements OnInit {
       return;
     }
 
-    this.formAction.execute(this.mode, this.route, this.form.value, this.id, (res) => {
+    this.fromAction.execute(this.mode, this.route, this.form.value, this.id, (res) => {
       this.form.reset();
       this.submitEvent.emit(res);
 

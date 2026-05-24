@@ -7,8 +7,9 @@
         pInputText
         [id]="inputId"
         [formControl]="asFormControl"
-        class="w-full rounded-xl border px-4 py-2.5 text-sm transition-all
-               duration-200 outline-none focus:ring-2 {{ errorClass }}"
+
+        class="w-full  border px-4 py-2.5 text-sm transition-all
+               duration-200 outline-none focus:ring-2"
       />
       <label [for]="inputId">
         {{ label }}@if(isRequired){<span class="text-red-500 ml-0.5">*</span>}
@@ -25,7 +26,7 @@
         [id]="inputId"
         [formControl]="asFormControl"
         class="w-full rounded-xl border px-4 py-2.5 text-sm transition-all
-               duration-200 outline-none focus:ring-2 {{ errorClass }}"
+               duration-200 outline-none focus:ring-2"
       />
       <!-- FIX: Added [for] property matching the input target id -->
       <label [for]="inputId">
@@ -96,7 +97,7 @@
         [rows]="rows"
         [formControl]="asFormControl"
         class="w-full rounded-xl border px-4 py-2.5 text-sm transition-all
-               duration-200 outline-none focus:ring-2 resize-y {{ errorClass }}"
+               duration-200 outline-none focus:ring-2 resize-y"
       ></textarea>
       <label [for]="inputId">
         {{ label }}@if(isRequired){<span class="text-red-500 ml-0.5">*</span>}
@@ -108,7 +109,7 @@
   @if (hasError) {
     <div class="flex flex-col gap-0.5 mt-0.5">
       @for (msg of errorMessages; track msg) {
-        <p-message severity="error" [text]="msg" styleClass="text-xs" />
+        <p-message severity="error" [text]="msg" size="small"/>
       }
     </div>
   }

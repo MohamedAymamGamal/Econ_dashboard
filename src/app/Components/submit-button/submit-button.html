@@ -1,12 +1,11 @@
 <p-button
   type="submit"
   (onClick)="submit()"
-  [disabled]="formAction.loading || form.invalid || disabled"
+  [disabled]="fromAction.loading || form.invalid || disabled"
   [icon]="icon"
-  [loading]="formAction.loading"
+  [iconPos]="isRTL ? 'left' : 'right'"
+  [loading]="fromAction.loading"
   [label]="label"
   fluid="fluid"
   [outlined]="outlined"
->
-
-</p-button>
+/>

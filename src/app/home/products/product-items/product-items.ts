@@ -17,15 +17,12 @@ import {BasketServices} from '../../../../service/basket-services';
 
 
 
-
 @Component({
   selector: 'app-product-items',
   imports: [
     ProductGallery,
     DecimalPipe,
-
-
-  ],
+],
   templateUrl: './product-items.html',
   styleUrl: './product-items.css',
 })

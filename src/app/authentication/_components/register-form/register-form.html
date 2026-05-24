@@ -20,8 +20,45 @@
     label="Email"
     type="email"
     id="email"
-  ></app-reuse-inputs>
+  >
+</app-reuse-inputs>
+<div class="flex flex-col gap-1">
+    <ngxsmk-tel-input
+      [formControlName]="'PhoneNumber'"
+      dir="ltr"
+      class="border-2 w-full block"
+      placeholder="Enter phone number"
+      [initialCountry]="'SA'"
+      [preferredCountries]="['SA', 'EG', 'US']"
+      [separateDialCode]="true"
+      [theme]="'light'"
+      style="
+        --tel-border:#5d2de0;
+        --tel-ring:#5d2de0;
+        --tel-border-radius:12px;
+        --tel-focus:#5d2de0;
+        --tel-radius:4px;
+        --tel-dd-item-hover: rgba(34,197,94,.12);
+        --tel-dd-z: 3000";
+        --tel-height: 48px;
+        --tel-width: 100%;
+      [formatWhenValid]="'typing'"
+      [lockWhenValid]="true"
+      [onlyCountries] ="['SA', 'EG', 'US', 'SA']"
+      >
+    </ngxsmk-tel-input>
 
+    @if (form.get('PhoneNumber')?.touched && form.get('PhoneNumber')?.invalid) {
+      <div class="mt-1.5 text-xs text-red-600 flex items-center gap-1 font-medium">
+        @if (form.get('PhoneNumber')?.errors?.['required']) {
+          <span>Phone number is required.</span>
+        }
+        @if (form.get('PhoneNumber')?.errors?.['invalidPhone']) {
+          <span>Invalid format for the selected country.</span>
+        }
+      </div>
+    }
+  </div>
 
   <app-reuse-inputs
     [control]="form.get('password')!"
@@ -46,7 +83,7 @@
           icon="pi pi-sign-in"
           redirectRoute="/authentication/email-verification"
         />
-      </div>w
+      </div>
 
     </div>
   </div>

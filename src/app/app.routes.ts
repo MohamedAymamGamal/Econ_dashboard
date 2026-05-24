@@ -17,14 +17,15 @@ export const routes: Routes = [
         loadComponent: () => import('./authentication/login/login').then((m) => m.Login),
       },
 
-      // {
-      //   path: "forget-password",
-      //   loadComponent: () => import('./authentication/forget-password/forget-password').then((m) => m.ForgetPassword),
-      // },
+
 
       {
         path: 'register',
         loadComponent: () => import('./authentication/register/register').then((m) => m.Register),
+      },
+      {
+        path: "forget-password",
+        loadComponent: () => import('./authentication/forget-password/forget-password').then((m) => m.ForgetPassword),
       },
 
       {
@@ -41,7 +42,21 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./home/home').then((m) => m.Home),
        children: [
-      {
+
+
+        {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'main-page',
+       },
+       {
+        path: 'main-page',
+        loadComponent: () =>
+          import('./home/main-home/main-home').then((m) => m.MainHome),
+
+       },
+
+        {
         path: 'products',
         loadComponent: () =>
           import('./home/products/products').then((m) => m.Products),

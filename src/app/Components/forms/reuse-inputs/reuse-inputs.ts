@@ -19,13 +19,14 @@ import {Textarea} from 'primeng/textarea';
     FloatLabelModule,
     Textarea,
     FloatLabel
+
   ],
   templateUrl: './reuse-inputs.html',
   styleUrl: './reuse-inputs.css',
 })
 export class ReuseInputs implements OnInit {
 
-  @Input() control!: AbstractControl;
+  @Input() control!: AbstractControl ;
 
   @Input() type: InputType = 'text';
   @Input() label = '';

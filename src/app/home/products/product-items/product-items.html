@@ -15,7 +15,7 @@
 
         <div class="flex items-center justify-between p-4">
           <h3 class="text-lg font-semibold">{{ item.name }}</h3>
-<!--          <app-reuse-button (click)="setBasketValue(item)" icon="pi pi-shopping-cart" type="button" label="Add to Cart"></app-reuse-button>-->
+         <button p-button (click)="setBasketValue(item)" icon="pi pi-shopping-cart" type="button" label="Add to Cart">add</button>
         </div>
         <div class="flex-col flex items-start p-2 ">
           <p class="text-secondary"> description: {{ item.description }}</p>
@@ -26,7 +26,7 @@
 
           <!-- New Price (highlighted) -->
           <p class="text-lg text-secondary font-semibold">
-            {{ item.newprice }} EGP
+            {{ item.newprice  }} EGP
           </p>
 
           <!-- Old Price (crossed out) -->

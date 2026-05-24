@@ -22,9 +22,12 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              { "glob": "**/*", "input": "node_modules/intl-tel-input/build/img", "output": "assets/intl-tel-input/img" }
             ],
-            "styles": ["node_modules/primeicons/primeicons.css", "src/styles.css"]
+            "styles": ["node_modules/primeicons/primeicons.css",
+                          "node_modules/intl-tel-input/build/css/intlTelInput.css","src/styles.css"]
+
           },
           "configurations": {
             "production": {

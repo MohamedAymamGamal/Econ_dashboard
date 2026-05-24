@@ -1,18 +1,17 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export const confirmPassword: ValidatorFn = (
-  control: AbstractControl,
+  control: AbstractControl
 ): ValidationErrors | null => {
+  // 'control' here is now the FormGroup
   const password = control.get('password');
-  const confirm = control.get('confirmPassword');
+  const confirmPassword = control.get('confirmPassword');
 
-  if (!password || !confirm) return null;
+  if (!password || !confirmPassword) return null;
 
-  if (password.value !== confirm.value) {
-    confirm.setErrors({ passwordMismatch: true });
+  if (password.value !== confirmPassword.value) {
     return { passwordMismatch: true };
   }
 
-  confirm.setErrors(null);
   return null;
 };
