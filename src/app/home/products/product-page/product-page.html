@@ -1,0 +1,36 @@
+<div class="grid grid-cols-3 md:grid-cols-2">
+  <!-- /// left side -->
+  <div class="p-4 col-span-1">
+    <app-product-gallery  [autoPlay]="true" [photos]="products()?.photos"></app-product-gallery>
+  </div>
+
+  <div class="m-4 grid grid-cols-1 items-cqenter">
+
+
+    <h1 class="text-3xl font-bold">{{ products()?.name }}</h1>
+
+    <p-rating class="" [(ngModel)]="value" />
+
+    <p class="text-lg line-through opacity-65 text-primary ">{{ products()?.oldPrice }}</p>
+    <p class="text-xl font-bold">{{ products()?.newprice }}</p>
+
+
+    <p class="text-sm opacity-65">{{ products()?.description }}</p>
+
+    <p-button label="Add to Cart" icon="pi pi-shopping-cart" fluid class="mt-4 w-full"></p-button>
+
+    <div class="surface-card border-round-xl mt-1 shadow-1">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="flex items-center gap-3">
+          <i class="pi pi-send text-primary text-xl"></i>
+          <span class="text-sm font-medium"> Free Express Shipping </span>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <i class="pi pi-shield text-primary text-xl"></i>
+          <span class="text-sm font-medium"> 2 Year Warranty </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -11,7 +11,7 @@ import {IProduct} from '../../../types/products';
 import {Subject, takeUntil} from 'rxjs';
 import {CategoryService} from '../../../service/category-service';
 import {RouterOutlet} from '@angular/router';
-
+import {SkeletonModule} from 'primeng/skeleton';
 interface ElementRef {
 }
 
@@ -19,7 +19,7 @@ interface ElementRef {
   selector: 'app-products',
   imports: [
     ProductItems,
-
+    SkeletonModule,
     ReactiveFormsModule,
     InputText,
     Select,
@@ -38,7 +38,8 @@ export class Products implements OnInit{
     search: ''
   };
   categories: ICateogry[] = [];
-
+  skeletonItems = Array(9);
+  loading = true;
   // @ViewChild('search') SearchInput: ElementRef;
   // @ViewChild('SortSelected') selected: ElementRef
   private productService = inject(ProductService);

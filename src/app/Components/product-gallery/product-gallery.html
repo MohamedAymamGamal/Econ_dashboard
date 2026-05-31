@@ -12,14 +12,13 @@
     [showIndicatorsOnItem]="true"
     [showItemNavigators]="true"
     [showItemNavigatorsOnHover]="true"
-
+    [autoPlay]="autoPlay"
     [circular]="true">
 
     <!-- Main Image -->
     <ng-template #item let-photo>
       <div style="position: relative; width: 100%; height: 320px; overflow: hidden; background: #f1f1f1;">
         <img [src]="[photo] | imageUrl"
-             (error)="onImageError($event)"
              [alt]="alt()"
              style="
                    width: 100%;
@@ -37,7 +36,6 @@
     <ng-template #thumbnail let-photo>
       <div style="padding: 4px;">
         <img [src]="[photo] | imageUrl"
-             (error)="onImageError($event)"
              [alt]="alt()"
              style="
                    width: 64px;

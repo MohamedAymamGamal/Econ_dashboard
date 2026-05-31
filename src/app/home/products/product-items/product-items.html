@@ -1,58 +1,42 @@
-
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4">
-    @for (item of products;   track trackById($index, item)) {
-
-
-
-
-      <div class="border-2 border-primary rounded-lg p-2">
-
-        <app-product-gallery
-          [photos]="item.photos"
-          [alt]="item.name">
-
-        </app-product-gallery>
-
-        <div class="flex items-center justify-between p-4">
-          <h3 class="text-lg font-semibold">{{ item.name }}</h3>
-         <button p-button (click)="setBasketValue(item)" icon="pi pi-shopping-cart" type="button" label="Add to Cart">add</button>
-        </div>
-        <div class="flex-col flex items-start p-2 ">
-          <p class="text-secondary"> description: {{ item.description }}</p>
-          <p class="text-secondary"> category: {{ item.categoryName }}</p>
-
-        </div>
-        <div class="flex flex-col items-start p-2 space-y-1">
-
-          <!-- New Price (highlighted) -->
-          <p class="text-lg text-secondary font-semibold">
-            {{ item.newprice  }} EGP
-          </p>
-
-          <!-- Old Price (crossed out) -->
-          <p class="text-sm text-gray-400 line-through">
-            {{ item.oldPrice }} EGP
-          </p>
-
-          <!-- Optional: discount badge -->
-          <span class="text-xs bg-red-100 text-tertiary px-2 py-0.5 rounded">
-          -{{ ((item.oldPrice - item.newprice) / item.oldPrice * 100) | number:'1.0-0' }}%
-        </span>
-
-        </div>
-
-
-
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-1">
+  @for (item of products; track trackById($index, item)) {
+    <div class="rounded-lg p-2  hover:shadow-md/30 shadow-md/10 transition ease-in-out duration-300">
+      <div class="cursor-pointer" (click)="tonavigateToProduct(item.id)">
+        <a>
+          <app-product-gallery [photos]="item.photos" [alt]="item.name"></app-product-gallery>
+        </a>
+      </div>
+      <div class="flex items-center justify-start p-2">
+        <p class="text-md text-primary text-start font-semibold">{{ item.categoryName }}</p>
+      </div>
+      <div class="flex items-center justify-between p-2">
+        <h3 class="text-md font-semibold">{{ item.name }}</h3>
+      </div>
+      <div class="flex-col flex items-start p-2">
+        <p class="text-sm opacity-65">{{ item.description }}</p>
       </div>
 
+      <!-- Old Price (crossed out) -->
+       <div class="flex items-center justify-between p-2">
+          <p class="text-md text-primary font-semibold  line-through">{{ item.oldPrice }}</p>
+       </div>
 
-
-
-    } @empty {
-      <!-- Empty state for better UX -->
-      <div class="col-span-full text-center py-20">
-        <p class="text-gray-500 text-lg">No products found in this category.</p>
+      <div class="flex items-center justify-between gap-2 p-2 bottom-0">
+        <!-- New Price (highlighted) -->
+        <p class="text-md font-semibold ">{{ item.newprice }}</p>
+        <p-button
+          (click)="setBasketValue(item)"
+          icon="pi pi-shopping-cart"
+          type="button"
+          label="Add to Cart"
+          styleClass="p-0.5rem! rounded-full! text-sm!   "
+        ></p-button>
       </div>
-    }
-  </div>
-
+    </div>
+  } @empty {
+    <!-- Empty state  -->
+    <div class="col-span-full text-center py-20">
+      <p class="text-gray-500 text-lg">No products found in this category.</p>
+    </div>
+  }
+</div>

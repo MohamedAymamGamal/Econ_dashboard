@@ -14,7 +14,7 @@ import { FormMode } from '../../../types/FromMode';
 })
 export class SubmitButtonComponent implements OnInit {
   @Output() submitEvent = new EventEmitter<void>();
-  @Input( ) route!: string;
+  @Input() route!: string;
   @Input() mode!: FormMode;
   @Input() id?: number | string;
   @Input() label: string = 'Save';

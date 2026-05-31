@@ -6,6 +6,7 @@ import {ButtonDirective} from 'primeng/button';
 import {Avatar} from 'primeng/avatar';
 import {Menu} from 'primeng/menu';
 import {MenuItem} from 'primeng/api';
+import { ModeSwitcher } from '../../../Components/mode-switcher/mode-switcher';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +16,8 @@ import {MenuItem} from 'primeng/api';
     Cart,
     ButtonDirective,
     Avatar,
-    Menu
+    Menu,
+    ModeSwitcher
   ],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
@@ -42,6 +44,7 @@ export class Navbar {
         icon: 'pi pi-cog',
         routerLink: '/settings'
       },
+
       {
         separator: true
       },

@@ -3,17 +3,52 @@
 @import "tailwindcss";
 @import "primeicons/primeicons.css";
 :root {
-  --color-primary:      #2d1b4d;
+ --color-primary:      #1C1B1F;
   --color-secondary:     #1e4359;
   --color-tertiary:      #456882;
   --color-light:         #D2C1B6;
-  --color-primary-hover: #354648;
+  --color-primary-hover: #C197FF;
   --color-text:          #b8d3d9;
-  --color-bg:           #5d2de0;
+  --color-bg:           #F8EDFF;
+
+  --surface-ground-dark: oklch(14.1% 0.005 285.823);
 
 }
+.bg-primary {
+  background-color: var(--color-primary-hover);
+}
 
-/* ── Reset ───────────────────────────────────────────────────────────────── */
+.border-color {
+  border-color: var(--color-primary-hover);
+}
+
+.text-primary {
+  color: var(--color-primary-hover);
+}
+.dark-mode {
+ --surface-ground-dark:var(--color-primary);
+}
+
+
+.dark-mode body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  height: 100vh;
+  background-color: var(--surface-ground-dark);
+  z-index: -1;
+
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  height: 100vh;
+  background-color: var(--color-bg);
+  z-index: -1;
+}
 
 * {
   box-sizing: border-box;
@@ -22,8 +57,10 @@
 
 body {
   margin: 0;
-  background-color: var(--color-bg); /* white */
+  background-color: var(--color-bg);
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ── Text helpers ────────────────────────────────────────────────────────── */

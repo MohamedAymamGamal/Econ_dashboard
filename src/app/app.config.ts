@@ -20,8 +20,9 @@ export const appConfig: ApplicationConfig = {
         preset: Preset,
         options: {
           prefix: 'p',
-          darkModeSelector: 'disabled',
+          darkModeSelector: '.dark-mode',
           ripple: true,
+
 
         }
       }

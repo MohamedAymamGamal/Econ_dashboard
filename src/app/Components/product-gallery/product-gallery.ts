@@ -1,4 +1,4 @@
-import {Component, input} from '@angular/core';
+import {Component, Input, input} from '@angular/core';
 import {IPhoto, IProduct} from '../../../types/products';
 import {GalleriaModule} from 'primeng/galleria';
 import {ImageUrlPipe} from '../../pipes/empty-profile-image-pipe-pipe';
@@ -13,14 +13,11 @@ import {ImageUrlPipe} from '../../pipes/empty-profile-image-pipe-pipe';
   styleUrl: './product-gallery.css',
 })
 export class ProductGallery {
-
+  @Input() autoPlay = false;
 
   photos = input<IPhoto[]>();
   alt   = input<string>('product image');
 
-  onImageError(event: Event): void {
-    (event.target as HTMLImageElement).src = 'assets/images/placeholder.png';
-  }
 
 
 }

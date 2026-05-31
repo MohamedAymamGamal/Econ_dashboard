@@ -1,12 +1,10 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-
   {
-    path : 'authentication',
-    loadComponent : () =>
-      import('./authentication/authentication').then((m) => m.Authentication),
-    children : [
+    path: 'authentication',
+    loadComponent: () => import('./authentication/authentication').then((m) => m.Authentication),
+    children: [
       {
         path: '',
         pathMatch: 'full',
@@ -17,61 +15,55 @@ export const routes: Routes = [
         loadComponent: () => import('./authentication/login/login').then((m) => m.Login),
       },
 
-
-
       {
         path: 'register',
         loadComponent: () => import('./authentication/register/register').then((m) => m.Register),
       },
       {
-        path: "forget-password",
-        loadComponent: () => import('./authentication/forget-password/forget-password').then((m) => m.ForgetPassword),
+        path: 'forget-password',
+        loadComponent: () =>
+          import('./authentication/forget-password/forget-password').then((m) => m.ForgetPassword),
       },
 
       {
         path: 'email-verification',
-        loadComponent: () => import('./authentication/email-verification/email-verification').then((m) => m.EmailVerification),
+        loadComponent: () =>
+          import('./authentication/email-verification/email-verification').then(
+            (m) => m.EmailVerification,
+          ),
       },
-    ]
+    ],
   },
 
-
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'home',
-    loadComponent: () =>
-      import('./home/home').then((m) => m.Home),
-       children: [
-
-
-        {
+    loadComponent: () => import('./home/home').then((m) => m.Home),
+    children: [
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'main-page',
-       },
-       {
-        path: 'main-page',
-        loadComponent: () =>
-          import('./home/main-home/main-home').then((m) => m.MainHome),
-
-       },
-
-        {
-        path: 'products',
-        loadComponent: () =>
-          import('./home/products/products').then((m) => m.Products),
       },
-         {
-           path: 'cart',
-           loadComponent: () =>
-             import('./home/cart-page/cart-page').then((m) => m.CartPage),
-         }
-    ]
-  }
+      {
+        path: '',
+        loadComponent: () => import('./home/main-home/main-home').then((m) => m.MainHome),
+      },
 
+      {
+        path: 'products',
+        loadComponent: () => import('./home/products/products').then((m) => m.Products),
+      },
+      {
+        path: 'products/:id',
+        loadComponent: () =>
+          import('./home/products/product-page/product-page').then((m) => m.ProductPage),
+      },
 
-
-
-
-
+      {
+        path: 'cart',
+        loadComponent: () => import('./home/cart-page/cart-page').then((m) => m.CartPage),
+      },
+    ],
+  },
 ];

@@ -13,6 +13,7 @@ import {ProductGallery} from '../../../Components/product-gallery/product-galler
 import {Button} from 'primeng/button';
 import {DecimalPipe} from '@angular/common';
 import {BasketServices} from '../../../../service/basket-services';
+import { Router } from '@angular/router';
 
 
 
@@ -22,6 +23,7 @@ import {BasketServices} from '../../../../service/basket-services';
   imports: [
     ProductGallery,
     DecimalPipe,
+    Button
 ],
   templateUrl: './product-items.html',
   styleUrl: './product-items.css',
@@ -32,7 +34,8 @@ export class ProductItems implements OnInit ,OnDestroy {
     private toast: Toast,
     private categoryService: CategoryService,
     private basketService: BasketServices,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    protected route : Router
   ) {}
 
 
@@ -97,4 +100,8 @@ export class ProductItems implements OnInit ,OnDestroy {
   }
 
 
+
+tonavigateToProduct(id: number) {
+  this.route.navigate(['/home/products', id]);
+}
 }

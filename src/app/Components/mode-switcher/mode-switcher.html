@@ -1,0 +1,6 @@
+<p-toggleswitch class="text-primary"  (onChange)="toggleMode()">
+  <ng-template #handle let-checked="checked">
+    <i [ngClass]="['!text-xs', 'pi', checked ? 'pi-sun' : 'pi-moon']"></i>
+  </ng-template>
+</p-toggleswitch>
+
