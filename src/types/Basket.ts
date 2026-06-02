@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import { IPhoto } from './products';
 export interface IBasket {
   id: string;
 
@@ -8,20 +9,18 @@ export interface IBasket {
 export interface IBasketItem {
   id: number;
   name: string;
-  image: string;
+  image?: IPhoto[];
   quantity: number;
   price: number;
   category: string;
-  description?:string
+  description?: string;
 }
-export class Basket implements IBasket{
-
-  id= uuidv4();
-  basketItems: IBasketItem[]=[];
-
+export class Basket implements IBasket {
+  id = uuidv4();
+  basketItems: IBasketItem[] = [];
 }
-export interface IBasketTotal{
-  shipping:number;
-  subtotal:number;
-  total:number;
+export interface IBasketTotal {
+  shipping: number;
+  subtotal: number;
+  total: number;
 }

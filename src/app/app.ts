@@ -1,13 +1,14 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {Toast} from 'primeng/toast';
-import {ConfirmDialog} from 'primeng/confirmdialog';
+import { Toast } from 'primeng/toast';
+import { ConfirmDialog, ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Toast, ConfirmDialog],
+  imports: [RouterOutlet, Toast, ConfirmDialogModule, ConfirmPopupModule],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
   protected readonly title = signal('Ecom');

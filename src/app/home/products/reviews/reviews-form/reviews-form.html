@@ -1,0 +1,23 @@
+<form [formGroup]="form" class="p-fluid" (ngSubmit)="handleSubmit()">
+  <div class="flex justify-between items-center gap-2">
+    <p-rating class="mb-4" formControlName="stars" [(ngModel)]="value"></p-rating>
+    <label class="font-bold text-2xl pb-4">give number :) </label>
+  </div>
+
+  <div class="grid grid-cols-1 gap-2">
+    <app-reuse-inputs
+      [control]="form.get('review')!"
+      label="Review"
+      type="textarea"
+      id="review"
+    ></app-reuse-inputs>
+
+    <p-button
+      label="Submit"
+      icon="pi pi-check"
+      (onClick)="addRating()"
+      class="mt-4 w-full"
+      fluid
+    ></p-button>
+  </div>
+</form>

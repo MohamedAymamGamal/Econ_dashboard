@@ -2,9 +2,10 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import {providePrimeNG} from 'primeng/config';
-import {ConfirmationService, MessageService} from 'primeng/api';
+import { providePrimeNG } from 'primeng/config';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Preset } from './preset';
+import { DialogService } from 'primeng/dynamicdialog';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,6 +14,8 @@ export const appConfig: ApplicationConfig = {
     // provideHttpClient(withInterceptors())
     MessageService,
     ConfirmationService,
+    DialogService,
+
     providePrimeNG({
       ripple: true,
 
@@ -22,10 +25,8 @@ export const appConfig: ApplicationConfig = {
           prefix: 'p',
           darkModeSelector: '.dark-mode',
           ripple: true,
-
-
-        }
-      }
-    })
-  ]
+        },
+      },
+    }),
+  ],
 };
