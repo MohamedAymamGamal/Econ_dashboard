@@ -18,7 +18,13 @@
 
     <p class="text-sm opacity-65">{{ products()?.description }}</p>
 
-    <p-button label="Add to Cart" icon="pi pi-shopping-cart" fluid class="mt-4 w-full"></p-button>
+    <p-button
+      label="Add to Cart"
+      icon="pi pi-shopping-cart"
+      (onClick)="setBasketValue(products()!)"
+      fluid
+      class="mt-4 w-full"
+    ></p-button>
 
     <div class="surface-card border-round-xl mt-1 shadow-1">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -36,6 +42,7 @@
   </div>
 </div>
 
-<div>
+<div class="space-y-2">
   <app-reviews></app-reviews>
+  <app-complete-the-look></app-complete-the-look>
 </div>

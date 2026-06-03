@@ -1,7 +1,7 @@
-import {inject, Injectable} from '@angular/core';
-import {API} from './api';
-import {ICateogry} from '../types/Category';
-import {Observable} from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { API } from './api';
+import { ICateogry } from '../types/Category';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +12,8 @@ export class CategoryService {
   getCategories(): Observable<ICateogry[]> {
     return this.api.index<ICateogry[]>('categories');
   }
-  getCategory(id: string): Observable<ICateogry> {
-    return this.api.show<ICateogry>(`categories`,id);
+  getCategory(id: number): Observable<ICateogry> {
+    return this.api.show<ICateogry>(`categories`, id);
   }
 
   createCategory(category: ICateogry): Observable<ICateogry> {
@@ -27,5 +27,4 @@ export class CategoryService {
   updateCategory(id: string, category: ICateogry): Observable<ICateogry> {
     return this.api.update<ICateogry, ICateogry>(`categories`, id, category);
   }
-
 }

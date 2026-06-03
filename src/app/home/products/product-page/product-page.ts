@@ -15,9 +15,20 @@ import { RatingModule } from 'primeng/rating';
 import { RatingService } from '../../../../service/rating-service';
 import { CreateRatingDTO } from '../../../../types/rating';
 import { Reviews } from '../reviews/reviews';
+import { CompleteTheLook } from '../complete-the-look/complete-the-look';
+import { BasketServices } from '../../../../service/basket-services';
 @Component({
   selector: 'app-product-page',
-  imports: [Button, Skeleton, DecimalPipe, ProductGallery, FormsModule, RatingModule, Reviews],
+  imports: [
+    Button,
+    Skeleton,
+    DecimalPipe,
+    ProductGallery,
+    FormsModule,
+    RatingModule,
+    Reviews,
+    CompleteTheLook,
+  ],
   templateUrl: './product-page.html',
   styleUrl: './product-page.css',
 })
@@ -35,8 +46,16 @@ export class ProductPage implements OnInit {
     protected productService: ProductService,
     protected Category: CategoryService,
     protected RatingService: RatingService,
+    private basketService: BasketServices,
   ) {}
 
+  setBasketValue(products: IProduct) {
+    if (!products) return this.toast.error('Product not found');
+
+    this.toast.success('Product added to basket', products.name);
+
+    this.basketService.addItemToBasket(products);
+  }
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const id = Number(params.get('id'));

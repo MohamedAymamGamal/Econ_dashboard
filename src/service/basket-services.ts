@@ -78,7 +78,7 @@ export class BasketServices {
       id: product.id,
       quantity: Quantity,
       category: product.categoryName,
-      image: product.photos,
+      image: product.photos?.[0]?.imageName ?? '', // single string
       price: product.newprice,
       description: product.description,
     };

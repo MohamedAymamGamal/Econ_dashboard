@@ -7,15 +7,19 @@ import { Toast } from '../../../../service/toast';
 import { formDialog } from '../../../../service/form-dialog';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ReviewsForm } from './reviews-form/reviews-form';
+import { CommonModule, DatePipe } from '@angular/common';
+import { RatingToReturnDTO } from '../../../../types/rating';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-reviews',
-  imports: [Button, RatingModule],
+  imports: [Button, RatingModule, CommonModule, DatePipe,FormsModule],
   templateUrl: './reviews.html',
   styleUrl: './reviews.css',
 })
 export class Reviews implements OnInit {
   value: number | null = null;
   totalRatings: number | null = null;
+  ratings: RatingToReturnDTO[] = [];
   ref: DynamicDialogRef | undefined | null;
   constructor(
     private RatingService: RatingService,
@@ -37,7 +41,6 @@ export class Reviews implements OnInit {
         productId: Number(this.route.snapshot.params['id']),
       },
       closable: true,
-
       contentStyle: { overflow: 'visible', width: '600px' },
     });
 
@@ -53,6 +56,7 @@ export class Reviews implements OnInit {
       next: (data) => {
         this.value = data.averageStars;
         this.totalRatings = data.totalRatings;
+        this.ratings = data.ratings;
       },
     });
   }

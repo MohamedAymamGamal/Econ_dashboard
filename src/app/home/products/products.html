@@ -41,17 +41,15 @@
   </div>
   <div class="lg:col-span-3 md:col-span-2 items-center">
     <app-product-items></app-product-items>
-
   </div>
-
 </div>
- <div class="flex items-center justufy-center">
-        <app-pagination
-      [PageNumber]="ProductParam.pageNumber"
-      [PageSize]="ProductParam.pageSize"
-      [TotalRecords]="totalRecords"
-      (PageChange)="OnChangePage($event)"
-      class="w-full"
-    >
-    </app-pagination>
-  </div>
+<div class="flex items-center justufy-center">
+  <app-pagination
+    [PageNumber]="ProductParam.pageNumber"
+    [PageSize]="ProductParam.pageSize"
+    [TotalRecords]="totalRecords"
+    (PageChange)="OnChangePage($event)"
+    class="w-full"
+  >
+  </app-pagination>
+</div>

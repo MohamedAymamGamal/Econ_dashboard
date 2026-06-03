@@ -9,7 +9,7 @@ export interface IBasket {
 export interface IBasketItem {
   id: number;
   name: string;
-  image?: IPhoto[];
+  image: string;
   quantity: number;
   price: number;
   category: string;

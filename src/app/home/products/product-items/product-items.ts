@@ -1,55 +1,41 @@
-import {ChangeDetectorRef, Component, inject, OnDestroy, OnInit} from '@angular/core';
-import {ProductService} from '../../../../service/product-service';
-import {ProductParam} from '../../../../types/ProductParams';
-import {Toast} from '../../../../service/toast';
-import {IProduct} from '../../../../types/products';
-import {ICateogry} from '../../../../types/Category';
-import {CategoryService} from '../../../../service/category-service';
-import {Pagination} from '../../../Components/pagination/pagination';
-import {Subject, takeUntil} from 'rxjs';
-import {environment} from '../../../../environments/environment.development';
-import {ImageUrlPipe} from '../../../pipes/empty-profile-image-pipe-pipe';
-import {ProductGallery} from '../../../Components/product-gallery/product-gallery';
-import {Button} from 'primeng/button';
-import {DecimalPipe} from '@angular/common';
-import {BasketServices} from '../../../../service/basket-services';
+import { ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ProductService } from '../../../../service/product-service';
+import { ProductParam } from '../../../../types/ProductParams';
+import { Toast } from '../../../../service/toast';
+import { IProduct } from '../../../../types/products';
+import { ICateogry } from '../../../../types/Category';
+import { CategoryService } from '../../../../service/category-service';
+import { Subject, takeUntil } from 'rxjs';
+import { ImageUrlPipe } from '../../../pipes/empty-profile-image-pipe-pipe';
+import { ProductGallery } from '../../../Components/product-gallery/product-gallery';
+import { Button } from 'primeng/button';
+import { BasketServices } from '../../../../service/basket-services';
 import { Router } from '@angular/router';
-
-
-
 
 @Component({
   selector: 'app-product-items',
-  imports: [
-    ProductGallery,
-    DecimalPipe,
-    Button
-],
+  imports: [ProductGallery, Button],
   templateUrl: './product-items.html',
   styleUrl: './product-items.css',
 })
-export class ProductItems implements OnInit ,OnDestroy {
+export class ProductItems implements OnInit, OnDestroy {
   constructor(
     private shopService: ProductService,
     private toast: Toast,
     private categoryService: CategoryService,
     private basketService: BasketServices,
     private cdr: ChangeDetectorRef,
-    protected route : Router
+    protected route: Router,
   ) {}
-
-
-
-
 
   private destroy$ = new Subject<void>();
   products: IProduct[] = [];
   totalRecords: number = 0;
 
-  setBasketValue(products:IProduct) {
-    if(!products) return this.toast.error('Product not found');
+  setBasketValue(products: IProduct) {
+    if (!products) return this.toast.error('Product not found');
 
-    this.toast.success('Product added to basket',products.name);
+    this.toast.success('Product added to basket', products.name);
 
     this.basketService.addItemToBasket(products);
   }
@@ -58,22 +44,19 @@ export class ProductItems implements OnInit ,OnDestroy {
     pageSize: 10,
     CategoryId: '',
     Sort: '',
-    search: ''
+    search: '',
   };
 
   ngOnInit(): void {
-    this.shopService.products$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(products => {this.products = products
-        this.cdr.detectChanges();
-      });
+    this.shopService.products$.pipe(takeUntil(this.destroy$)).subscribe((products) => {
+      this.products = products;
+      this.cdr.detectChanges();
+    });
 
-    this.shopService.total$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(total => {this.totalRecords = total
-        this.cdr.detectChanges();
-
-        });
+    this.shopService.total$.pipe(takeUntil(this.destroy$)).subscribe((total) => {
+      this.totalRecords = total;
+      this.cdr.detectChanges();
+    });
 
     this.getProducts();
 
@@ -87,10 +70,6 @@ export class ProductItems implements OnInit ,OnDestroy {
     this.shopService.loadProducts(this.ProductParam);
   }
 
-
-
-
-
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
@@ -99,9 +78,7 @@ export class ProductItems implements OnInit ,OnDestroy {
     return item.id || index;
   }
 
-
-
-tonavigateToProduct(id: number) {
-  this.route.navigate(['/home/products', id]);
-}
+  tonavigateToProduct(id: number) {
+    this.route.navigate(['/home/products', id]);
+  }
 }
