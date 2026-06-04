@@ -1,5 +1,5 @@
 export class ProductParam {
-  CategoryId: string | number = '';
+  CategoryId: string | number | void = '';
   Sort: string = '';
   search: string = '';
   pageNumber: number = 1;
