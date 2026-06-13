@@ -26,6 +26,7 @@ export class SubmitButtonComponent implements OnInit {
   @Input() file: File | null = null;
   @Input() files: File[] | null = null;
   @Input() fileName: string = 'file';
+  
   form!: FormGroup;
 
   constructor(

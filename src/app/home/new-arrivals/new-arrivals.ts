@@ -1,23 +1,21 @@
-import { ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
+import { API } from '../../../service/api';
+import { ProductService } from '../../../service/product-service';
 import { ActivatedRoute } from '@angular/router';
-import { Subject, takeUntil, switchMap } from 'rxjs';
-import { Divider } from 'primeng/divider';
-import { ProductService } from '../../../../service/product-service';
-import { IProduct } from '../../../../types/products';
+import { IProduct } from '../../../types/products';
 import { CarouselModule } from 'primeng/carousel';
-import { API } from '../../../../service/api';
-import { ProductGallery } from '../../../Components/product-gallery/product-gallery';
+import { ProductGallery } from '../../Components/product-gallery/product-gallery';
 import { Rating } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-complete-the-look',
-  imports: [Divider, CarouselModule, ProductGallery, Rating, FormsModule],
-  templateUrl: './complete-the-look.html',
-  styleUrl: './complete-the-look.css',
+  selector: 'app-new-arrivals',
+  imports: [ CarouselModule, ProductGallery, Rating, FormsModule],
+  templateUrl: './new-arrivals.html',
+  styleUrl: './new-arrivals.css',
 })
-export class CompleteTheLook implements OnInit, OnDestroy {
-
+export class NewArrivals {
   private destroy$ = new Subject<void>();
 
   product: IProduct | null = null;
@@ -30,15 +28,13 @@ export class CompleteTheLook implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    const productId = this.route.snapshot.params['id'];
 
-    this.api.show<any>('products', productId)
+    this.api.index<any>('products')
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.product = res.data ?? res;
         this.productService.loadProducts({
-          CategoryId: this.product!.categoryId,
-          Sort: '',
+          Sort: 'RatingDesc',
           search: '',
           pageNumber: 1,
           pageSize: 10,

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {NgOptimizedImage} from '@angular/common';
 import {Cart} from '../cart/cart';
@@ -7,6 +7,7 @@ import {Avatar} from 'primeng/avatar';
 import {Menu} from 'primeng/menu';
 import {MenuItem} from 'primeng/api';
 import { ModeSwitcher } from '../../../Components/mode-switcher/mode-switcher';
+import { Auth } from '../../../../service/auth';
 
 @Component({
   selector: 'app-navbar',
@@ -23,15 +24,17 @@ import { ModeSwitcher } from '../../../Components/mode-switcher/mode-switcher';
   styleUrl: './navbar.css',
 })
 export class Navbar {
-
+  private auth = inject(Auth);
   navItems = [
     { label: 'Home', url: '/home' },
     { label: 'Products', url: '/home/products' },
     { label: 'Contact', url: '/contact' },
   ];
+    isLoggedIn = this.auth.isLoggedIn;
+    isLoading = this.auth.isLoading;
+    currentUser = this.auth.currentUser;
 
   items: MenuItem[] | undefined;
-
   ngOnInit() {
     this.items = [
       {
@@ -57,6 +60,6 @@ export class Navbar {
   }
 
   logout() {
-    console.log("User logged out");
+    this.auth.logout();
   }
 }

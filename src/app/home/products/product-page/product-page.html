@@ -8,11 +8,17 @@
     <h1 class="text-3xl font-bold">{{ products()?.name }}</h1>
 
     <div class="flex items-center gap-2">
-      <p class="text-sm text-primary mt-1">{{ value }}</p>
+
+      @if (value !== null) {
+        <p class="text-sm text-primary mt-1">{{ value }}</p>
+
+      } @else {
+        <p class="text-sm text-primary mt-1">No ratings yet</p>
+      }
 
       <p-rating class="" disabled="true" (onRate)="addRating()" [(ngModel)]="value" />
     </div>
-    <p class="text-sm text-primary mt-1">{{ totalRatings }} rate number</p>
+    <p class="text-sm text-primary mt-1">{{ rating }} rate number</p>
     <p class="text-lg line-through opacity-65 text-primary">{{ products()?.oldPrice }}</p>
     <p class="text-xl font-bold">{{ products()?.newprice }}</p>
 

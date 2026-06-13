@@ -24,7 +24,7 @@ export class EmailVerficationForm implements OnInit, OnDestroy {
   protected count = 60 * 10;
   protected isSubmitting = false;
   private intervalId: any = null;
-
+  private email: string = '';
   public form!: FormGroup;
 
   constructor(
@@ -37,6 +37,7 @@ export class EmailVerficationForm implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.otpForm();
+    this.email = sessionStorage.getItem('pendingVerificationEmail') ?? '';
     this.startCounter();
   }
 
@@ -87,17 +88,17 @@ export class EmailVerficationForm implements OnInit, OnDestroy {
     });
   }
 
-  public submitOtp(): void {
+    public submitOtp(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
-
     this.isSubmitting = true;
-    const payload = { OtpCode: this.form.value.Otpcode };
-
+    const payload = { OtpCode: this.form.value.Otpcode, Email: this.email };
     this.api.store('account/active-account', payload).subscribe({
       next: (res: any) => {
+        // ✅ Clear session only on success
+        sessionStorage.removeItem('pendingVerificationEmail');
         this.toast.success(res.message || 'Account verification complete.', 'Account Activated');
         this.router.navigate(['/authentication/login']);
       },
@@ -107,6 +108,7 @@ export class EmailVerficationForm implements OnInit, OnDestroy {
       }
     });
   }
+
 
   // Helper method for your template view formatting (e.g., 10:00)
   protected get formatTime(): string {

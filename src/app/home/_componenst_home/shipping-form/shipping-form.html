@@ -1,0 +1,72 @@
+<p-stepper [value]="1">
+  <p-step-list>
+    <p-step [value]="1">Shipping Address</p-step>
+    <p-step [value]="2">Shipping Method</p-step>
+    <p-step [value]="3">Payment Details</p-step>
+  </p-step-list>
+
+  <p-step-panels>
+    <p-step-panel [value]="1" header="Shipping Address">
+      <ng-template #content let-activateCallback="activateCallback" class="space-y-4" >
+        <div class="flex items-center justify-start gap-2">
+          <i style="font-size: 1.5rem" class="pi pi-truck text-primary mb-3"></i>
+          <h1 class="text-start font-bold mb-4 text-xl">Shipping Address</h1>
+        </div>
+
+        <form class="space-y-4" [formGroup]="ShippingAddress">
+          <div class="grid grid-col-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+            <app-reuse-inputs
+              label="First Name"
+              [control]="ShippingAddress.get('FirstName')!"
+              placeholder="Enter your first name"
+            />
+            <app-reuse-inputs
+              label="Last Name"
+              [control]="ShippingAddress.get('LastName')!"
+              placeholder="Enter your last name"
+            />
+          </div>
+          <div>
+            <app-reuse-inputs
+              label="Street"
+              [control]="ShippingAddress.get('Street')!"
+              placeholder="Enter your Street" 
+            />
+          </div>
+          <div class="grid grid-col-3 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
+            <app-reuse-inputs
+              label="City"
+              [control]="ShippingAddress.get('City')!"
+              placeholder="Enter your City"
+            />
+            <app-reuse-inputs
+              label="State"
+              [control]="ShippingAddress.get('State')!"
+              placeholder="Enter your State"
+            />
+            <app-reuse-inputs
+              label="Zip Code"
+              [control]="ShippingAddress.get('ZipCode')!"
+              placeholder="Enter your Zip Code"
+            />
+          </div>
+          <div class="flex items-center justify-end gap-4">
+            <p-button
+              label="Next"
+              icon="pi pi-arrow-right"
+              (click)="nextStep(activateCallback, 2, ShippingAddress)"
+            ></p-button>
+          </div>
+        </form>
+      </ng-template>
+    </p-step-panel>
+
+    <p-step-panel [value]="2">
+      <ng-template #content  let-activateCallback="activateCallback"> Step 2 Content </ng-template>
+    </p-step-panel>
+
+    <p-step-panel [value]="3">
+      <ng-template #content  let-activateCallback="activateCallback"> Step 3 Content </ng-template>
+    </p-step-panel>
+  </p-step-panels>
+</p-stepper>

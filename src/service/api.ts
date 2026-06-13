@@ -19,23 +19,24 @@ export class API {
         }
       });
     }
-    return this.http.get<R>(`${this.apiUrl}/${path}`, { params: cleanParams });
+    return this.http.get<R>(`${this.apiUrl}/${path}`, { params: cleanParams , withCredentials: true,});
   }
 
   show<R>(path: string, id: string | number): Observable<R> {
-    return this.http.get<R>(`${this.apiUrl}/${path}/${id}`);
+    return this.http.get<R>(`${this.apiUrl}/${path}/${id}`, { withCredentials: true,});
   }
 
   store<T, R>(path: string, payload: T): Observable<R> {
-    return this.http.post<R>(`${this.apiUrl}/${path}`, payload);
+    return this.http.post<R>(`${this.apiUrl}/${path}`, payload, { withCredentials: true,});
   }
 
   update<T, R>(path: string, id: string | number, payload: T): Observable<R> {
-    return this.http.put<R>(`${this.apiUrl}/${path}/${id}`, payload);
+    return this.http.put<R>(`${this.apiUrl}/${path}/${id}`, payload ,{ withCredentials: true,});
   }
 
+
   destroy<T, R>(path: string,id: string | number): Observable<R> {
-    return this.http.delete<R>(`${this.apiUrl}/${path}/${id}`,);
+    return this.http.delete<R>(`${this.apiUrl}/${path}/${id}`,{ withCredentials: true},);
   }
 
   download(path: string){

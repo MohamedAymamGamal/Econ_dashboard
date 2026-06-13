@@ -5,11 +5,9 @@
     [containerStyle]="{
           'width': '100%',
           'overflow': 'hidden',
-          'background': '#f8f9fa',
         }"
     [showThumbnails]="photos()!.length > 1"
     [showIndicators]="photos()!.length > 1"
-    [showIndicatorsOnItem]="true"
     [showItemNavigators]="true"
     [showItemNavigatorsOnHover]="true"
     [autoPlay]="autoPlay"
@@ -17,9 +15,10 @@
 
     <!-- Main Image -->
     <ng-template #item let-photo>
-      <div style="position: relative; width: 100%; height: 320px; overflow: hidden; background: #f1f1f1;">
-        <img [src]="[photo] | imageUrl"
+      <div style="position: relative; width: 100%; height: 320px; overflow: hidden">
+        <img [ngSrc]="[photo] | imageUrl"
              [alt]="alt()"
+             fill
              style="
                    width: 100%;
                    height: 100%;
@@ -34,9 +33,10 @@
 
     <!-- Thumbnail -->
     <ng-template #thumbnail let-photo>
-      <div style="padding: 4px;">
+      <div style="padding: 5px;">
         <img [src]="[photo] | imageUrl"
              [alt]="alt()"
+             fill
              style="
                    width: 64px;
                    height: 64px;

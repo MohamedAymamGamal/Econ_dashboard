@@ -9,18 +9,21 @@ import { Message } from 'primeng/message';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { SelectModule } from 'primeng/select';
 import { COUNTRY_PHONE_RULES, nativePhoneValidator } from '../../../validator/nativePhoneValidator';
+import { API } from '../../../../service/api';
+import { Router } from '@angular/router';
+import { ButtonModule } from "primeng/button";
 @Component({
   selector: 'app-register-form',
   standalone: true,
   imports: [
     ReactiveFormsModule,
     ReuseInputs,
-    SubmitButtonComponent,
     Message,
     CommonModule,
     SelectModule,
     NgOptimizedImage,
-  ],
+    ButtonModule
+],
   templateUrl: './register-form.html',
   styleUrl: './register-form.css',
 })
@@ -28,11 +31,13 @@ export class RegisterForm implements OnInit {
   form!: FormGroup;
   countries = COUNTRY_PHONE_RULES;
   currentPlaceholder = 'Select a country first';
-
+  isSubmitting = false
   constructor(
     private fb: FormBuilder,
     private toaster: Toast,
     private themeService: ThemeService,
+    private api: API,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -60,6 +65,24 @@ export class RegisterForm implements OnInit {
 
 
   }
+
+ onSubmit(): void {
+    this.form.markAllAsTouched();
+    if (this.form.invalid) return;
+
+    this.isSubmitting = true;
+    this.api.store('account/register', this.form.value).subscribe({
+      next: () => {
+        sessionStorage.setItem('pendingVerificationEmail', this.form.value.email);
+        this.router.navigate(['/authentication/email-verification']);
+      },
+      error: (err) => {
+        this.toaster.error(err.error?.message || 'Registration failed.');
+        this.isSubmitting = false;
+      },
+    });
+  }
+
 
 
   updatePlaceholder(countryCode: string) {

@@ -6,13 +6,11 @@ import { IBasket, IBasketItem } from '../../../types/Basket';
 import { BasketServices } from '../../../service/basket-services';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Divider } from 'primeng/divider';
-import { Card } from 'primeng/card';
-import { InputNumber } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
 import { Toast } from '../../../service/toast';
-import { RouterLink } from '@angular/router';
-import { ImageUrlPipe } from '../../pipes/empty-profile-image-pipe-pipe';
 import { IPhoto } from '../../../types/products';
+import { OrderMenu } from "./order-menu/order-menu";
+import { ShippingPage } from "./shipping-page/shipping-page";
 
 @Component({
   selector: 'app-cart-page',
@@ -21,14 +19,10 @@ import { IPhoto } from '../../../types/products';
     DataViewModule,
     TagModule,
     CommonModule,
-    Divider,
-    Card,
-    InputNumber,
     FormsModule,
-    RouterLink,
-    ImageUrlPipe,
-    NgOptimizedImage,
-  ],
+    OrderMenu,
+    ShippingPage
+],
   templateUrl: './cart-page.html',
   styleUrl: './cart-page.css',
 })

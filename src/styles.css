@@ -17,7 +17,9 @@
 .bg-primary {
   background-color: var(--color-primary-hover);
 }
-
+.bg-primary-op10 {
+  background-color: var(--color-primary-hover) / 0.5;
+}
 .border-color {
   border-color: var(--color-primary-hover);
 }

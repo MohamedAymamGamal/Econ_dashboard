@@ -14,113 +14,19 @@
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-    <!-- 1. Product List Section -->
-    <div class="lg:col-span-8">
-      <div class="flex flex-col gap-4">
-        @for (product of products(); track product.id) {
-          <div
-            class="flex flex-col md:flex-row items-center p-4 bg-primary shadow-sm border-round rounded-lg border gap-6"
-          >
-            <!-- Fixed Image Binding -->
-            <img
-              alt="{{ product.name }}"
-              [alt]="product.name"
-              class="w-32 h-32 object-cover border-round"
-            />
 
-            <div class="flex-grow">
-              <h3 class="text-xl text-secondary font-semibold">{{ product.name }}</h3>
-              <p-tag
-                severity="success"
-                value="In Stock"
-                [rounded]="true"
-                styleClass="text-xs"
-              ></p-tag>
-            </div>
-
-            <div class="flex flex-col items-end gap-3">
-              <span class="text-xl font-bold text-gray-900">{{ product.price | currency }}</span>
-              <div class="flex items-center justify-center">
-                <p-inputNumber
-                  [(ngModel)]="product.quantity"
-                  [showButtons]="true"
-                  buttonLayout="horizontal"
-                  [inputStyle]="{ width: '2.5rem' }"
-                  spinnerMode="horizontal"
-                  decrementButtonClass="p-button-secondary p-button-text"
-                  incrementButtonClass="p-button-secondary p-button-text"
-                  incrementButtonIcon="pi pi-plus"
-                  decrementButtonIcon="pi pi-minus"
-                  [min]="1"
-                ></p-inputNumber>
-                <p-button
-                  icon="pi pi-trash"
-                  severity="danger"
-                  [text]="true"
-                  (click)="RemoveBasket(product)"
-                ></p-button>
-              </div>
-            </div>
-          </div>
-        } @empty {
-          <!-- This is the correct way to handle empty lists in Angular 17+ -->
-          <div
-            class="text-center py-32 bg-gray-50 border-round border-2 rounded-lg bg-primary border-dashed border-gray-200"
-          >
-            <i class="pi pi-shopping-cart text-4xl mb-4 text-gray-400"></i>
-            <h2 class="text-2xl font-bold text-gray-500">Your cart is empty</h2>
-            <p-button
-              label="Go Shopping"
-              routerLink="/home/products"
-              class="mt-4"
-              styleClass="p-button-link"
-            ></p-button>
-          </div>
-        }
+      <!-- 1. Cart Items Section -->
+      <div class="lg:col-span-8">
+              <app-shipping-page></app-shipping-page>
       </div>
-    </div>
+
 
     <!-- 2. Order Summary Section -->
-    <div class="lg:col-span-4">
-      <p-card
-        header="Order Summary"
-        [style]="{ 'background-color': 'var(--color-bg)', color: 'var(--color-light)' }"
-      >
-        <div class="flex flex-col gap-4">
-          <!-- Text classes adjusted for contrast -->
-          <div class="flex justify-between">
-            <span class="opacity-80">Subtotal</span>
-            <span class="font-semibold">{{ calculateSubtotal() | currency }}</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="opacity-80">Shipping</span>
-            <span class="text-green-400 font-medium">Free</span>
-          </div>
+     <div class="lg:col-span-4">
+            <app-order-menu></app-order-menu>
 
-          <p-divider></p-divider>
 
-          <div class="flex justify-between text-xl font-bold">
-            <span>Total</span>
-            <span class="text-white">{{ calculateSubtotal() * 1.05 | currency }}</span>
-          </div>
-          <!--          <div class="flex justify-center items-center w-full ">-->
-          <!--            <app-submit-button-->
-          <!--              label="Proceed to Checkout"-->
-          <!--              icon="pi pi-check-circle"-->
-          <!--              class="w-full mt-4"-->
-          <!--              type="button">-->
-          <!--            </app-submit-button>-->
-          <!--          </div>-->
-          <button pButton icon="pi pi-check-circle" class="w-full bg-primary rounded-lg mt-4">
-            Proceed to Checkout
-          </button>
 
-          <div class="flex items-center justify-center gap-2 mt-4 text-sm opacity-60">
-            <i class="pi pi-shield"></i>
-            <span>Secure SSL Checkout</span>
-          </div>
-        </div>
-      </p-card>
-    </div>
+     </div>
   </div>
 </div>

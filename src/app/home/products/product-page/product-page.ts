@@ -21,8 +21,6 @@ import { BasketServices } from '../../../../service/basket-services';
   selector: 'app-product-page',
   imports: [
     Button,
-    Skeleton,
-    DecimalPipe,
     ProductGallery,
     FormsModule,
     RatingModule,
@@ -34,7 +32,7 @@ import { BasketServices } from '../../../../service/basket-services';
 })
 export class ProductPage implements OnInit {
   value: number | null = null;
-  totalRatings: number | null = null;
+  rating: number | null = null;
 
   review: string = '';
   products = signal<IProduct | null>(null);
@@ -62,22 +60,26 @@ export class ProductPage implements OnInit {
 
       if (!id) return;
 
-      this.api.show<IProduct>('products', id).subscribe({
-        next: (data) => this.products.set(data),
-      });
-    });
-
-    this.loadRating(this.route.snapshot.params['id']);
-  }
-
-  loadRating(id: number) {
-    this.RatingService.getRatings(id).subscribe({
+    this.api.show<IProduct>('products', id).subscribe({
       next: (data) => {
+        this.products.set(data);
         this.value = data.averageStars;
-        this.totalRatings = data.totalRatings;
+        this.rating = data.totalRatings;
       },
     });
+  });
+
+    // this.loadRating(this.route.snapshot.params['id']);
   }
+
+  // loadRating(id: number) {
+  //   this.RatingService.getRatings(id).subscribe({
+  //     next: (data) => {
+  //       this.value = data.averageStars;
+  //       this.totalRatings = data.totalRatings;
+  //     },
+  //   });
+  // }
 
   addRating() {
     const productId = Number(this.route.snapshot.params['id']);
@@ -90,7 +92,6 @@ export class ProductPage implements OnInit {
     this.RatingService.addRating(productId, dto).subscribe({
       next: () => {
         this.toast.success('Rating added successfully');
-        this.loadRating(productId);
       },
       error: () => {
         this.toast.error('Failed to add rating');

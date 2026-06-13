@@ -6,16 +6,16 @@ import { providePrimeNG } from 'primeng/config';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Preset } from './preset';
 import { DialogService } from 'primeng/dynamicdialog';
-
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from '../interceptors/api-interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    // provideHttpClient(withInterceptors())
+    provideHttpClient(withInterceptors([authInterceptor])),
     MessageService,
     ConfirmationService,
     DialogService,
-
     providePrimeNG({
       ripple: true,
 
@@ -30,3 +30,5 @@ export const appConfig: ApplicationConfig = {
     }),
   ],
 };
+
+

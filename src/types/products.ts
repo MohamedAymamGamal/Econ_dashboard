@@ -1,3 +1,5 @@
+import { RatingSummaryDTO } from "./rating";
+
 export interface IProduct {
   id: number;
   name: string;
@@ -5,9 +7,12 @@ export interface IProduct {
   newprice: number;
   oldPrice: number;
   photos?: IPhoto[];
+
   categoryId: number;
   categoryName: string;
-  rating?: number;
+  averageStars: number;
+  totalRatings: number;
+  ratings: RatingSummaryDTO;
 }
 
 export interface IPhoto {

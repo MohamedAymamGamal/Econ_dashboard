@@ -31,6 +31,8 @@ export class ProductService {
         search: param.search,
         pageNumber: param.pageNumber,
         pageSize: param.pageSize,
+        MaxRating: param.MaxRating,
+        MinRating: param.MinRating,
       })
       .subscribe((res) => {
         this.productsSubject.next(res.data);
@@ -39,8 +41,11 @@ export class ProductService {
   }
 
 
+  clearProduct() {
+  this.productByIdSubject.next(null);
+}
 loadProdcutbyId(id: IProduct['id']) {
-  this.api.show('Products', id).subscribe((res: any) => {
+   this.api.show<{ data: IProduct }>('Products', id).subscribe((res) => {
     this.productByIdSubject.next(res.data);
   });
 }

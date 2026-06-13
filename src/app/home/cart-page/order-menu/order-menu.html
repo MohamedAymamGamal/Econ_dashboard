@@ -1,0 +1,38 @@
+<div class="grid grid-cols-1 gap-4">
+  <div class="p-8 rounded-lg shadow-md/20 hover:shadow-md/30 transition-shadow duration-300">
+    <div class="flex items-center justify-center">
+      <h1 class="text-3xl font-semibold">Order Summary</h1>
+    </div>
+    <p-divider class="my-4"></p-divider>
+    <div class="space-y-4 grid grid-cols-1">
+      <ng-container *ngFor="let item of products(); let i = index">
+        <div class="flex items-center justify-between gap-4">
+          <div>
+            <h1>{{ item.name }}</h1>
+            <p class="text-sm opacity-65">Quantity: {{ item.quantity }}</p>
+            <p class="text-sm opacity-65">Price: {{ item.price }}</p>
+          </div>
+
+          <img
+            [src]="item.image ? environment + item.image : 'images/placeholder.png'"
+            class="w-20 h-20 object-cover rounded-md"
+            alt="{{ item.name }}"
+          />
+        </div>
+        <div class="flex items-center justify-start gap-3">
+          <p-button  styleClass=" px-3! rounded-lg! " (click)="incrementItemQuantity()">+</p-button>
+          <p-button  styleClass=" px-4! rounded-lg! " (click)="decrmentItemQuantity()">-</p-button>
+        </div>
+      </ng-container>
+    </div>
+
+    <p-divider class="my-4"></p-divider>
+    <div class="flex items-center justify-between mt-4">
+      <h2 class="text-lg font-semibold">Total Items:</h2>
+      <p class="text-lg font-semibold">{{ calculateSubtotal() }}</p>
+    </div>
+    <p-divider class="my-4"></p-divider>
+
+    <p-button fluid label="Complete Purchase" class="w-full"></p-button>
+  </div>
+</div>
