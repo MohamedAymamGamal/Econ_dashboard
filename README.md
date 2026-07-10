@@ -1,59 +1,218 @@
-# Ecom
+# E-Commerce Platform (Ecom)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.4.
+A full-stack **E-Commerce Platform** built with **ASP.NET Core Web API** and **Angular**, following **Clean Architecture** principles. The application provides a complete online shopping experience with secure authentication, product management, shopping cart, online payments, caching, and containerized deployment using Docker.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🚀 Features
 
-```bash
-ng serve
+### Authentication & Authorization
+- JWT Authentication
+- Role-based authorization (Admin & Customer)
+- User registration and login
+- Secure API endpoints
+
+### Product Management
+- Product catalog
+- Categories & Brands
+- Product search, filtering, sorting
+- Pagination
+
+### Shopping
+- Shopping Cart
+- Wishlist
+- Order Management
+- Secure Checkout
+
+### Payments
+- Stripe Payment Integration
+- Payment Intent creation
+- Secure payment processing
+- Order confirmation
+
+### Performance
+- Redis distributed caching
+- Optimized database queries
+- Fast API response times
+
+---
+
+# 🏗️ Architecture
+
+The project follows **Clean Architecture** with a layered architecture to keep business logic independent from infrastructure.
+
+```
+src
+├── API
+├── Application
+├── Domain
+└── Infrastructure
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+# 📐 Design Patterns
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+The application uses several enterprise design patterns:
 
-```bash
-ng generate component component-name
+- ✅ Clean Architecture
+- ✅ Repository Pattern
+- ✅ **Unit of Work Pattern**
+- ✅ Service Layer Pattern
+- ✅ Specification Pattern
+- ✅ Dependency Injection
+- ✅ CQRS (where applicable)
+- ✅ Global Exception Handling
+
+### Unit of Work
+
+The **Unit of Work Pattern** coordinates multiple repositories under a single database transaction. Instead of each repository saving changes independently, all operations are committed together through a single `SaveChangesAsync()` call.
+
+**Benefits**
+- Maintains data consistency
+- Supports transactional operations
+- Reduces database calls
+- Simplifies repository management
+- Makes business logic easier to maintain and test
+
+Example flow:
+
+```
+Create Order
+     │
+     ▼
+Update Product Stock
+     │
+     ▼
+Create Payment
+     │
+     ▼
+Commit Transaction (Unit of Work)
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
+
+# 🛠️ Tech Stack
+
+## Backend
+- ASP.NET Core Web API
+- Entity Framework Core
+- SQL Server
+- Redis
+- ASP.NET Core Identity
+- JWT Authentication
+- Stripe API
+
+## Frontend
+- Angular
+- TypeScript
+- RxJS
+- Bootstrap
+
+## DevOps
+- Docker
+- Docker Compose
+
+---
+
+# 🐳 Docker
+
+The application is fully containerized using **Docker Compose**.
+
+### Services
+
+- ASP.NET Core API
+- Angular Client
+- SQL Server
+- Redis
+
+### Benefits
+
+- One-command project setup
+- Consistent development environment
+- Easy onboarding
+- Isolated services
+- Production-like local environment
+
+Run the application:
 
 ```bash
-ng generate --help
+docker compose up --build
 ```
 
-## Building
-
-To build the project run:
+Stop containers:
 
 ```bash
-ng build
+docker compose down
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+# 📦 Modules
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+- Authentication
+- Products
+- Categories
+- Brands
+- Shopping Cart
+- Orders
+- Payments
+- Admin Dashboard
+
+---
+
+# ⚡ API Features
+
+- RESTful API
+- CRUD Operations
+- Pagination
+- Filtering
+- Sorting
+- Search
+- Image Upload
+- Global Exception Handling
+
+---
+
+# 💳 Payment Workflow
+
+1. Customer adds items to the cart.
+2. Checkout creates a Stripe Payment Intent.
+3. Payment is completed securely.
+4. Order is created.
+5. Product inventory is updated.
+6. Changes are committed through the **Unit of Work** transaction.
+
+---
+
+# 🚀 Getting Started
+
+Clone the repository:
 
 ```bash
-ng test
+git clone https://github.com/yourusername/ecommerce-platform.git
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+Start all services:
 
 ```bash
-ng e2e
+docker compose up --build
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+# 🔧 Future Improvements
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Email notifications
+- Product reviews & ratings
+- Coupons & discounts
+- Elasticsearch integration
+- CI/CD pipeline
+- Kubernetes deployment
+- Cloud deployment (Azure/AWS)
+
+---
+
+## 📄 License
+
+This project is intended for educational and portfolio purposes.
